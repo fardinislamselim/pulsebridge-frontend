@@ -1,24 +1,37 @@
 import React from "react";
 import Link from "next/link";
-import { MapPin, ShieldCheck, Compass, HeartHandshake } from "lucide-react";
+import { MapPin, ShieldCheck, Compass, HeartHandshake, CheckCircle2, Clock } from "lucide-react";
 import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
-import type { MatchedEligibleDonor } from "@/types";
+import type { MatchedEligibleDonor, PublicDonor, BloodGroup } from "@/types";
 
 interface DonorCardProps {
-  donor: MatchedEligibleDonor;
+  donor: MatchedEligibleDonor | PublicDonor;
   requestId?: string;
   actionHref?: string;
 }
 
 /**
- * DonorCard - Reusable donor profile preview card
+ * DonorCard - Reusable privacy-safe donor profile card
  */
 export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
+  const donorId = "donorId" in donor ? donor.donorId : donor.id;
+  const donorName =
+    ("donorName" in donor && donor.donorName)
+      ? donor.donorName
+      : ("user" in donor && donor.user?.name)
+      ? donor.user.name
+      : "Verified Blood Donor";
+
+  const bloodGroup = ("donorBloodGroup" in donor ? donor.donorBloodGroup : donor.bloodGroup) as BloodGroup;
+
+  const eligibleAt = "eligibleAt" in donor ? donor.eligibleAt : null;
+  const isCooldownActive = eligibleAt && new Date(eligibleAt) > new Date();
+
   const logDonationUrl =
     actionHref ||
     (requestId
-      ? `/requester/donations/log?requestId=${requestId}&donorProfileId=${donor.donorId}`
-      : `/requester/donations/log?donorProfileId=${donor.donorId}`);
+      ? `/requester/donations/log?requestId=${requestId}&donorProfileId=${donorId}`
+      : `/requester/donations/log?donorProfileId=${donorId}`);
 
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
@@ -27,7 +40,7 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
           <div>
             <div className="flex items-center gap-1.5">
               <h3 className="font-bold text-slate-900 dark:text-white text-sm">
-                {donor.donorName || "Verified Blood Donor"}
+                {donorName}
               </h3>
               {donor.isVerified && (
                 <span title="Verified Donor" className="inline-flex text-emerald-500">
@@ -44,10 +57,10 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
             </div>
           </div>
 
-          <BloodGroupBadge bloodGroup={donor.donorBloodGroup} size="sm" />
+          <BloodGroupBadge bloodGroup={bloodGroup} size="sm" />
         </div>
 
-        {/* Distance & Availability */}
+        {/* Proximity, Availability & Eligibility Badges */}
         <div className="mt-3 flex flex-wrap items-center gap-2">
           {donor.distanceKm !== undefined && (
             <span className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 border border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800">
@@ -57,19 +70,31 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
           )}
 
           <span
-            className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-semibold border ${
-              donor.isAvailable
+            className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold border ${
+              donor.isAvailable && !isCooldownActive
                 ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800"
                 : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700"
             }`}
           >
-            {donor.isAvailable ? "Available to Donate" : "Recently Active"}
+            {isCooldownActive ? (
+              <>
+                <Clock className="h-3 w-3" />
+                In Medical Cooldown
+              </>
+            ) : donor.isAvailable ? (
+              <>
+                <CheckCircle2 className="h-3 w-3" />
+                Available & Eligible
+              </>
+            ) : (
+              "Recently Active"
+            )}
           </span>
         </div>
       </div>
 
       <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-        <span className="text-[11px] text-slate-400">ABO Compatible</span>
+        <span className="text-[11px] text-slate-400">ABO Verified</span>
         <Link
           href={logDonationUrl}
           className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/20 hover:bg-red-700 transition"

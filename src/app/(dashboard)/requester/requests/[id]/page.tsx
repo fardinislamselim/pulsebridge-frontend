@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { RequestDetailsClient } from "@/components/requester/RequestDetailsClient";
 
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }
