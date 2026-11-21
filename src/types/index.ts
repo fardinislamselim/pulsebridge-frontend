@@ -250,6 +250,44 @@ export interface RequestTimelineEvent {
   performedBy?: string;
 }
 
+export interface BloodRequestHistoryItem {
+  id: string;
+  bloodRequestId: string;
+  actorId?: string | null;
+  action: string;
+  previousStatus?: RequestStatus | null;
+  newStatus?: RequestStatus | null;
+  previousUrgency?: RequestUrgency | null;
+  newUrgency?: RequestUrgency | null;
+  reason?: string | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt: string;
+  actor?: {
+    id: string;
+    name: string;
+    email: string;
+    role: UserRole;
+  } | null;
+}
+
+export interface MatchedEligibleDonor {
+  donorId: string;
+  donorName?: string;
+  donorBloodGroup: BloodGroup;
+  requestedBloodGroup: BloodGroup;
+  distanceKm?: number;
+  district?: string | null;
+  city?: string | null;
+  area?: string | null;
+  isAvailable: boolean;
+  isVerified: boolean;
+  bloodCompatibility?: {
+    compatible: boolean;
+    component: string;
+    requiresMedicalCrossmatch: boolean;
+  };
+}
+
 // ==========================================
 // 5. Donation Models
 // ==========================================
