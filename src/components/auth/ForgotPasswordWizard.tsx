@@ -22,8 +22,7 @@ import {
   EyeOff,
   RefreshCw,
 } from "lucide-react";
-import apiClient from "@/lib/axios";
-import type { ApiResponse } from "@/types";
+import { authService } from "@/services/auth.service";
 
 // Step 1: Request OTP Schema
 const requestOtpSchema = z.object({
@@ -93,13 +92,8 @@ function ForgotPasswordWizardInternal() {
 
   // Mutation 1: POST /auth/forgot-password
   const requestOtpMutation = useMutation({
-    mutationFn: async (data: RequestOtpFormData) => {
-      const response = await apiClient.post<ApiResponse<unknown>>(
-        "/auth/forgot-password",
-        { email: data.email.trim().toLowerCase() }
-      );
-      return response.data;
-    },
+    mutationFn: (data: RequestOtpFormData) =>
+      authService.forgotPassword({ email: data.email.trim().toLowerCase() }),
     onSuccess: (_, variables) => {
       setTargetEmail(variables.email);
       toast.success("Reset Code Sent!", {
@@ -117,15 +111,11 @@ function ForgotPasswordWizardInternal() {
 
   // Mutation 2: POST /auth/verify-reset-otp
   const verifyOtpMutation = useMutation({
-    mutationFn: async (data: VerifyOtpFormData) => {
-      const response = await apiClient.post<
-        ApiResponse<{ email: string; resetToken: string }>
-      >("/auth/verify-reset-otp", {
+    mutationFn: (data: VerifyOtpFormData) =>
+      authService.verifyResetOtp({
         email: targetEmail.trim().toLowerCase(),
         otp: data.otp.trim(),
-      });
-      return response.data;
-    },
+      }),
     onSuccess: (data) => {
       const token = data.data?.resetToken;
       if (!token) {
@@ -147,17 +137,12 @@ function ForgotPasswordWizardInternal() {
 
   // Mutation 3: POST /auth/reset-password
   const resetPasswordMutation = useMutation({
-    mutationFn: async (data: NewPasswordFormData) => {
-      const response = await apiClient.post<ApiResponse<unknown>>(
-        "/auth/reset-password",
-        {
-          email: targetEmail.trim().toLowerCase(),
-          resetToken,
-          newPassword: data.newPassword,
-        }
-      );
-      return response.data;
-    },
+    mutationFn: (data: NewPasswordFormData) =>
+      authService.resetPassword({
+        email: targetEmail.trim().toLowerCase(),
+        resetToken,
+        newPassword: data.newPassword,
+      }),
     onSuccess: () => {
       toast.success("Password Reset Successful!", {
         description: "You can now sign in with your new password.",

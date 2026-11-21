@@ -2,12 +2,10 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 import {
   HeartHandshake,
   ArrowLeft,
@@ -23,9 +21,10 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-import apiClient from "@/lib/axios";
+import { useCreateDonation } from "@/hooks/useDonations";
+import { useBloodRequestDetails } from "@/hooks/useBloodRequests";
 import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
-import type { ApiResponse, BloodRequest, Donation } from "@/types";
+import type { BloodRequest } from "@/types";
 
 const logDonationSchema = z.object({
   bloodRequestId: z
@@ -58,9 +57,7 @@ const logDonationSchema = z.object({
 type LogDonationFormData = z.infer<typeof logDonationSchema>;
 
 export function LogDonationForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const queryClient = useQueryClient();
 
   const queryRequestId = searchParams.get("requestId") || searchParams.get("bloodRequestId") || "";
   const queryDonorId = searchParams.get("donorProfileId") || searchParams.get("donorId") || "";
@@ -94,21 +91,7 @@ export function LogDonationForm() {
   const selectedRequestId = watch("bloodRequestId");
 
   // Fetch Blood Request details if ID is present
-  const { data: bloodRequest, isLoading: isRequestLoading } = useQuery({
-    queryKey: ["blood-request", selectedRequestId],
-    queryFn: async () => {
-      if (!selectedRequestId) return null;
-      try {
-        const res = await apiClient.get<ApiResponse<BloodRequest>>(
-          `/blood-requests/${selectedRequestId}`
-        );
-        return res.data.data;
-      } catch {
-        return null;
-      }
-    },
-    enabled: !!selectedRequestId && selectedRequestId.length > 5,
-  });
+  const { data: bloodRequest } = useBloodRequestDetails(selectedRequestId);
 
   // Pre-fill hospital name and address when blood request data loads
   useEffect(() => {
@@ -123,48 +106,7 @@ export function LogDonationForm() {
   }, [bloodRequest, setValue]);
 
   // Mutation: POST /donations
-  const logDonationMutation = useMutation({
-    mutationFn: async (formData: LogDonationFormData) => {
-      const payload = {
-        donorId: formData.donorProfileId,
-        donorProfileId: formData.donorProfileId,
-        bloodRequestId: formData.bloodRequestId,
-        unitsDonated: formData.unitsDonated,
-        hospitalName: formData.hospitalName,
-        hospitalAddress: formData.hospitalAddress || undefined,
-        donationDate: new Date(formData.donationDate).toISOString(),
-        notes: formData.notes || undefined,
-      };
-
-      const res = await apiClient.post<ApiResponse<Donation>>("/donations", payload);
-      return res.data;
-    },
-    onSuccess: (res, variables) => {
-      toast.success(
-        res.message || "Donation record logged successfully! Status set to PENDING verification."
-      );
-      queryClient.invalidateQueries({
-        queryKey: ["blood-request", variables.bloodRequestId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["blood-request-history", variables.bloodRequestId],
-      });
-      queryClient.invalidateQueries({ queryKey: ["my-blood-requests"] });
-      queryClient.invalidateQueries({ queryKey: ["donations"] });
-
-      if (variables.bloodRequestId) {
-        router.push(`/requester/requests/${variables.bloodRequestId}`);
-      } else {
-        router.push("/requester");
-      }
-    },
-    onError: (err: any) => {
-      const errorMsg =
-        err.response?.data?.message ||
-        "Failed to log donation. Please verify Donor ID and Request ID.";
-      toast.error(errorMsg);
-    },
-  });
+  const logDonationMutation = useCreateDonation();
 
   return (
     <div className="space-y-6">
@@ -237,7 +179,12 @@ export function LogDonationForm() {
       {/* Main Logging Form Card */}
       <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <form
-          onSubmit={handleSubmit((data) => logDonationMutation.mutateAsync(data))}
+          onSubmit={handleSubmit((data) =>
+            logDonationMutation.mutateAsync({
+              ...data,
+              donorId: data.donorProfileId,
+            })
+          )}
           className="space-y-6 text-xs"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

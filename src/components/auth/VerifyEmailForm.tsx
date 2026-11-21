@@ -14,8 +14,8 @@ import {
   AlertCircle,
   ShieldCheck,
 } from "lucide-react";
-import apiClient from "@/lib/axios";
-import type { ApiResponse } from "@/types";
+import { useVerifyEmail } from "@/hooks/useAuthActions";
+import { authService } from "@/services/auth.service";
 
 function VerifyEmailFormInternal() {
   const router = useRouter();
@@ -90,41 +90,7 @@ function VerifyEmailFormInternal() {
   const fullOtp = otpDigits.join("");
 
   // Mutation: Verify Email OTP
-  const verifyMutation = useMutation({
-    mutationFn: async () => {
-      if (!email) {
-        throw new Error("Email address is required");
-      }
-      if (fullOtp.length !== 6) {
-        throw new Error("Please enter all 6 digits of the OTP code");
-      }
-
-      const response = await apiClient.post<ApiResponse<unknown>>(
-        "/auth/verify-email",
-        {
-          email: email.trim().toLowerCase(),
-          otp: fullOtp,
-        }
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      toast.success("Email verified successfully!", {
-        description: "Your account is active. You can now log in.",
-      });
-      router.push("/login");
-    },
-    onError: (error: unknown) => {
-      const apiMessage =
-        (error as { response?: { data?: { message?: string } } })?.response
-          ?.data?.message ||
-        (error as Error)?.message ||
-        "Invalid or expired OTP. Please check the code and try again.";
-      toast.error("Verification Failed", {
-        description: apiMessage,
-      });
-    },
-  });
+  const verifyMutation = useVerifyEmail();
 
   // Mutation: Resend Verification OTP
   const resendMutation = useMutation({
@@ -133,13 +99,9 @@ function VerifyEmailFormInternal() {
         throw new Error("Please specify your email address first");
       }
 
-      const response = await apiClient.post<ApiResponse<unknown>>(
-        "/auth/resend-verification-otp",
-        {
-          email: email.trim().toLowerCase(),
-        }
-      );
-      return response.data;
+      return authService.resendVerificationOtp({
+        email: email.trim().toLowerCase(),
+      });
     },
     onSuccess: () => {
       toast.success("New OTP Sent!", {
@@ -164,7 +126,11 @@ function VerifyEmailFormInternal() {
 
   const handleVerifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    verifyMutation.mutate();
+    if (fullOtp.length !== 6) {
+      toast.error("Please enter all 6 digits of the OTP code");
+      return;
+    }
+    verifyMutation.mutate({ email: email.trim().toLowerCase(), otp: fullOtp });
   };
 
   return (

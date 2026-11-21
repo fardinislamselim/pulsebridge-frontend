@@ -24,8 +24,8 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import apiClient from "@/lib/axios";
-import type { ApiResponse, BloodGroup, UserRole } from "@/types";
+import { useRegister } from "@/hooks/useAuthActions";
+import type { BloodGroup, UserRole } from "@/types";
 
 const BANGLADESH_DISTRICTS = [
   "Dhaka",
@@ -165,47 +165,18 @@ function RegisterFormInternal() {
     setValue("role", selectedRole);
   }, [selectedRole, setValue]);
 
-  const registerMutation = useMutation({
-    mutationFn: async (data: RegisterFormData) => {
-      const payload: Record<string, unknown> = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        phone: data.phone,
-        role: data.role,
-      };
-
-      if (data.role === "DONOR") {
-        payload.bloodGroup = data.bloodGroup;
-        payload.district = data.district;
-        if (data.city) payload.city = data.city;
-        if (data.address) payload.address = data.address;
-      }
-
-      const response = await apiClient.post<ApiResponse<unknown>>(
-        "/auth/register",
-        payload
-      );
-      return response.data;
-    },
-    onSuccess: (_, variables) => {
-      toast.success("Account created successfully!", {
-        description: `A 6-digit OTP has been sent to ${variables.email}. Please verify your account.`,
-      });
-      router.push(`/verify-email?email=${encodeURIComponent(variables.email)}`);
-    },
-    onError: (error: unknown) => {
-      const apiMessage =
-        (error as { response?: { data?: { message?: string } } })?.response
-          ?.data?.message || "Failed to create account. Please verify your details.";
-      toast.error("Registration Failed", {
-        description: apiMessage,
-      });
-    },
-  });
+  const registerMutation = useRegister();
 
   const onSubmit = (data: RegisterFormData) => {
-    registerMutation.mutate(data);
+    registerMutation.mutate({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone || undefined,
+      role: data.role as UserRole,
+      bloodGroup: data.bloodGroup as BloodGroup | undefined,
+      district: data.district || undefined,
+    });
   };
 
   // Password requirements checklist

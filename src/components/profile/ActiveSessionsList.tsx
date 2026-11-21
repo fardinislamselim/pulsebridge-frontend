@@ -14,6 +14,7 @@ import {
   AlertCircle,
   CheckCircle2,
 } from "lucide-react";
+import { CardGridSkeleton } from "@/components/shared/CardGridSkeleton";
 import apiClient from "@/lib/axios";
 import type { ApiResponse, SessionInfo } from "@/types";
 
@@ -99,12 +100,7 @@ export function ActiveSessionsList() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-8 text-slate-500 dark:border-slate-800 dark:bg-slate-900">
-        <Loader2 className="h-6 w-6 animate-spin text-red-600 mb-2" />
-        <span className="text-xs">Fetching active device sessions...</span>
-      </div>
-    );
+    return <CardGridSkeleton count={2} columns={1} />;
   }
 
   if (error) {

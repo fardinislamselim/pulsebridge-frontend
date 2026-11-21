@@ -18,7 +18,8 @@ import {
   Droplet,
   Calendar,
 } from "lucide-react";
-import apiClient from "@/lib/axios";
+import { FormSkeleton } from "@/components/shared/FormSkeleton";
+import { userService } from "@/services/user.service";
 import { useAuthStore } from "@/store/authStore";
 import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
 import type { ApiResponse, User as UserType, BloodGroup } from "@/types";
@@ -89,8 +90,8 @@ export function ProfileUpdateForm() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["my-profile"],
     queryFn: async () => {
-      const response = await apiClient.get<ApiResponse<UserType>>("/users/me");
-      return response.data.data;
+      const response = await userService.getMe();
+      return response.data;
     },
   });
 
@@ -128,21 +129,11 @@ export function ProfileUpdateForm() {
   // Mutation: PATCH /users/me
   const updateMutation = useMutation({
     mutationFn: async (formData: ProfileFormData) => {
-      const payload: Record<string, unknown> = {
+      const response = await userService.updateMe({
         name: formData.name,
         phone: formData.phone || undefined,
-      };
-
-      if (formData.district) payload.district = formData.district;
-      if (formData.city) payload.city = formData.city;
-      if (formData.address) payload.address = formData.address;
-      if (formData.bloodGroup) payload.bloodGroup = formData.bloodGroup;
-
-      const response = await apiClient.patch<ApiResponse<UserType>>(
-        "/users/me",
-        payload
-      );
-      return response.data.data;
+      });
+      return response.data;
     },
     onSuccess: (updated) => {
       toast.success("Profile Updated!", {
@@ -167,12 +158,7 @@ export function ProfileUpdateForm() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-12 text-slate-500 dark:border-slate-800 dark:bg-slate-900">
-        <Loader2 className="h-8 w-8 animate-spin text-red-600 mb-3" />
-        <span className="text-sm">Loading your profile data...</span>
-      </div>
-    );
+    return <FormSkeleton fields={4} columns={2} showButtons={true} />;
   }
 
   if (error || !data) {

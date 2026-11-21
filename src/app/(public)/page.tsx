@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
 import { StatusBadge } from "@/components/shared/StatusBadge";
+import { StatCard } from "@/components/shared/StatCard";
 import type { BloodGroup } from "@/types";
 
 const FEATURED_GROUPS: BloodGroup[] = [
@@ -75,53 +76,31 @@ export default function HomePage() {
 
         {/* Quick Metrics Grid */}
         <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/60">
-                <Droplet className="h-6 w-6" />
-              </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 dark:text-white">
-                  8 Groups
-                </div>
-                <div className="text-xs font-medium text-slate-500">
-                  ABO & Rh Antigen Engine
-                </div>
-              </div>
-            </div>
-          </div>
+          <StatCard
+            title="Antigen Engine"
+            value="8 Groups"
+            subtitle="ABO & Rh Antigen Engine"
+            icon={Droplet}
+            iconBgClass="bg-red-100 text-red-600 dark:bg-red-950/60"
+          />
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 dark:text-white">
-                  90-Day Cooldown
-                </div>
-                <div className="text-xs font-medium text-slate-500">
-                  Medical Donor Protection
-                </div>
-              </div>
-            </div>
-          </div>
+          <StatCard
+            title="Donor Safety"
+            value="90-Day Cooldown"
+            subtitle="Medical Donor Protection"
+            icon={ShieldCheck}
+            iconBgClass="bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60"
+            iconColorClass="text-emerald-600 dark:text-emerald-400"
+          />
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950/60">
-                <Activity className="h-6 w-6" />
-              </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 dark:text-white">
-                  24/7 Verified
-                </div>
-                <div className="text-xs font-medium text-slate-500">
-                  Emergency Dispatch Queue
-                </div>
-              </div>
-            </div>
-          </div>
+          <StatCard
+            title="Dispatch Queue"
+            value="24/7 Verified"
+            subtitle="Emergency Dispatch Queue"
+            icon={Activity}
+            iconBgClass="bg-blue-100 text-blue-600 dark:bg-blue-950/60"
+            iconColorClass="text-blue-600 dark:text-blue-400"
+          />
         </div>
       </section>
     </div>
