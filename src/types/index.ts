@@ -194,8 +194,16 @@ export interface PublicDonor {
 }
 
 export interface BloodCompatibility {
-  canDonateTo: BloodGroup[];
-  canReceiveFrom: BloodGroup[];
+  canDonateTo?: BloodGroup[];
+  canReceiveFrom?: BloodGroup[];
+  compatible?: boolean;
+  donorBloodGroup?: BloodGroup;
+  recipientBloodGroup?: BloodGroup;
+  compatibleRecipientBloodGroups?: BloodGroup[];
+  compatibleDonorBloodGroups?: BloodGroup[];
+  component?: string;
+  reason?: string;
+  requiresMedicalCrossmatch?: boolean;
 }
 
 // ==========================================
