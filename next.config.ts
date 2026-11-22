@@ -17,6 +17,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/payment/cancelled",
+        destination: "/payment/cancel",
+      },
+      {
+        source: "/payment/failed",
+        destination: "/payment/cancel",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
