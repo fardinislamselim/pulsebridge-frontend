@@ -25,6 +25,8 @@ import {
   EyeOff,
 } from "lucide-react";
 import { useRegister } from "@/hooks/useAuthActions";
+import { AuthDivider } from "@/components/auth/AuthDivider";
+import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton";
 import type { BloodGroup, UserRole } from "@/types";
 
 const BANGLADESH_DISTRICTS = [
@@ -476,8 +478,8 @@ function RegisterFormInternal() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600"
-                tabIndex={-1}
+                aria-label="Toggle password visibility"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -594,6 +596,11 @@ function RegisterFormInternal() {
         </button>
       </form>
 
+      {/* Or Continue With Google */}
+      <AuthDivider />
+
+      <GoogleLoginButton />
+
       {/* Footer Navigation */}
       <div className="pt-2 text-center text-xs text-slate-600 dark:text-slate-400">
         Already have an account?{" "}
@@ -601,7 +608,7 @@ function RegisterFormInternal() {
           href="/login"
           className="font-semibold text-red-600 hover:text-red-700 hover:underline dark:text-red-400"
         >
-          Sign In here
+          Sign in
         </Link>
       </div>
     </div>

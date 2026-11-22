@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import apiClient from "@/lib/axios";
 import { toast } from "sonner";
-import { LogIn, UserPlus, LogOut, LayoutDashboard, User } from "lucide-react";
+import { LogIn, UserPlus, LogOut, LayoutDashboard } from "lucide-react";
 
 export function NavbarAuthActions() {
   const router = useRouter();
@@ -30,12 +30,24 @@ export function NavbarAuthActions() {
     }
   };
 
-  // SSR placeholder to prevent hydration flash
+  // Graceful fallback during hydration: render standard accessible buttons
   if (!mounted) {
     return (
-      <div className="flex items-center gap-2.5 opacity-0">
-        <div className="h-8 w-16 rounded-lg bg-slate-200" />
-        <div className="h-8 w-24 rounded-lg bg-red-600" />
+      <div className="flex items-center gap-2 sm:gap-3">
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+        >
+          <LogIn className="h-3.5 w-3.5" />
+          Sign In
+        </Link>
+        <Link
+          href="/register?role=DONOR"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 transition hover:bg-red-700"
+        >
+          <UserPlus className="h-3.5 w-3.5" />
+          Join as Donor
+        </Link>
       </div>
     );
   }
@@ -48,24 +60,24 @@ export function NavbarAuthActions() {
     }
 
     return (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* User Pill */}
-        <div className="hidden sm:flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs dark:border-slate-800 dark:bg-slate-900">
+        <div className="hidden sm:flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs dark:border-slate-800 dark:bg-slate-900">
           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
             {user.name ? user.name[0].toUpperCase() : "U"}
           </div>
           <span className="max-w-[120px] truncate font-medium text-slate-700 dark:text-slate-300">
             {user.name || user.email}
           </span>
-          <span className="rounded bg-slate-200 px-1 py-0.2 text-[9px] font-semibold uppercase text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+          <span className="rounded bg-slate-200 px-1 py-0.5 text-[9px] font-semibold uppercase text-slate-600 dark:bg-slate-800 dark:text-slate-400">
             {user.role}
           </span>
         </div>
 
-        {/* Dashboard Link */}
+        {/* Role-Aware Dashboard Link */}
         <Link
           href={dashboardPath}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
         >
           <LayoutDashboard className="h-3.5 w-3.5" />
           Dashboard
@@ -75,7 +87,7 @@ export function NavbarAuthActions() {
         <button
           type="button"
           onClick={handleLogout}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 shadow-sm transition hover:bg-red-50 hover:text-red-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-red-950/40 dark:hover:text-red-400"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-2 text-slate-600 shadow-sm transition hover:bg-red-50 hover:text-red-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-red-950/40 dark:hover:text-red-400"
           title="Sign Out"
           aria-label="Sign Out"
         >
@@ -89,14 +101,14 @@ export function NavbarAuthActions() {
     <div className="flex items-center gap-2 sm:gap-3">
       <Link
         href="/login"
-        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+        className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
       >
         <LogIn className="h-3.5 w-3.5" />
         Sign In
       </Link>
       <Link
         href="/register?role=DONOR"
-        className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+        className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
       >
         <UserPlus className="h-3.5 w-3.5" />
         Join as Donor

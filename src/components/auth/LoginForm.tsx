@@ -2,12 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Lock, Mail, ArrowRight, Loader2 } from "lucide-react";
-import { useLogin } from "@/hooks/useAuthActions";
-import { DemoLoginButtons, type DemoAccount } from "@/components/auth/DemoLoginButtons";
+import { Lock, Mail, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
+import { authService } from "@/services/auth.service";
+import { useAuthStore } from "@/store/authStore";
+import { AuthDivider } from "@/components/auth/AuthDivider";
+import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email address is required").email("Please enter a valid email address"),
@@ -17,28 +21,42 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-  const [selectedDemoEmail, setSelectedDemoEmail] = useState<string>("");
-  const loginMutation = useLogin();
+  const router = useRouter();
+  const setAuth = useAuthStore((state) => state.setAuth);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    loginMutation.mutate(data);
-  };
+  const onSubmit = async (data: LoginFormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await authService.login(data);
+      const { user, accessToken, refreshToken } = response.data;
 
-  const handleDemoLogin = (account: DemoAccount) => {
-    setSelectedDemoEmail(account.email);
-    setValue("email", account.email);
-    setValue("password", account.password);
-    loginMutation.mutate({ email: account.email, password: account.password });
+      setAuth(user, accessToken, refreshToken);
+      toast.success(response.message || `Welcome back, ${user.name}!`);
+
+      let target = "/requester";
+      if (user.role === "DONOR") target = "/donor";
+      else if (user.role === "ADMIN" || user.role === "SUPER_ADMIN") target = "/admin";
+
+      router.push(target);
+      router.refresh();
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || "Login failed. Please verify credentials.";
+      toast.error(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -53,6 +71,7 @@ export function LoginForm() {
             <input
               type="email"
               placeholder="name@example.com"
+              disabled={isSubmitting}
               {...register("email")}
               className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
                 errors.email ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
@@ -72,23 +91,32 @@ export function LoginForm() {
           <div className="relative">
             <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
+              disabled={isSubmitting}
               {...register("password")}
-              className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
+              className={`w-full rounded-xl border pl-9 pr-10 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
                 errors.password ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
               }`}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label="Toggle password visibility"
+              className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
           {errors.password && <p className="mt-1 text-red-600 font-medium">{errors.password.message}</p>}
         </div>
 
         <button
           type="submit"
-          disabled={loginMutation.isPending}
+          disabled={isSubmitting}
           className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 disabled:opacity-70 transition"
         >
-          {loginMutation.isPending && !selectedDemoEmail ? (
+          {isSubmitting ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
               Signing In...
@@ -102,18 +130,19 @@ export function LoginForm() {
         </button>
       </form>
 
-      <div className="relative flex items-center justify-center">
-        <div className="w-full border-t border-slate-200 dark:border-slate-800" />
-        <span className="bg-white px-3 text-[11px] font-bold uppercase text-slate-400 dark:bg-slate-900">
-          Or Quick Demo Login
-        </span>
-      </div>
+      <AuthDivider />
 
-      <DemoLoginButtons
-        onSelectAccount={handleDemoLogin}
-        isLoading={loginMutation.isPending}
-        selectedEmail={selectedDemoEmail}
-      />
+      <GoogleLoginButton />
+
+      <div className="pt-2 text-center text-xs text-slate-600 dark:text-slate-400">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/register"
+          className="font-semibold text-red-600 hover:text-red-700 hover:underline dark:text-red-400"
+        >
+          Register now
+        </Link>
+      </div>
     </div>
   );
 }

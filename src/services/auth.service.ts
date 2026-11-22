@@ -49,9 +49,28 @@ export interface ResetPasswordPayload {
   newPassword: string;
 }
 
+export interface GoogleAuthUrlResponse {
+  authUrl: string;
+  clientId: string;
+  defaultRole: UserRole;
+}
+
 export const authService = {
   async login(payload: LoginPayload): Promise<ApiResponse<AuthResponse>> {
     const res = await apiClient.post<ApiResponse<AuthResponse>>("/auth/login", payload);
+    return res.data;
+  },
+
+  async loginWithGoogleToken(idToken: string): Promise<ApiResponse<AuthResponse>> {
+    const res = await apiClient.post<ApiResponse<AuthResponse>>("/auth/google", {
+      credential: idToken,
+      idToken,
+    });
+    return res.data;
+  },
+
+  async getGoogleAuthUrl(): Promise<ApiResponse<GoogleAuthUrlResponse>> {
+    const res = await apiClient.get<ApiResponse<GoogleAuthUrlResponse>>("/auth/google");
     return res.data;
   },
 
