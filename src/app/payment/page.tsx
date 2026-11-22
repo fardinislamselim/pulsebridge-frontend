@@ -1,5 +1,11 @@
+import { Metadata } from "next";
 import Link from "next/link";
-import { CreditCard, CheckCircle2, ShieldCheck } from "lucide-react";
+import { CreditCard, ShieldCheck } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Payment Methods & Gateways | PulseBridge",
+  description: "Supported voluntary contribution gateways including SSLCOMMERZ (BDT) and Stripe (USD).",
+};
 
 export default function PaymentPage() {
   return (
