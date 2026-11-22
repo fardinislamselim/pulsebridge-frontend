@@ -322,6 +322,23 @@ export interface Donation {
   verifiedBy?: Pick<User, "id" | "name" | "email">;
 }
 
+export interface DonationHistorySummary {
+  totalDonations: number;
+  completedDonations: number;
+  pendingDonations: number;
+  totalUnitsDonated: number;
+  lastDonationDate: string | null;
+  cooldownEndsAt: string | null;
+  isEligible: boolean;
+  remainingCooldownDays: number;
+}
+
+export interface DonationHistoryResult {
+  summary: DonationHistorySummary;
+  donations: Donation[];
+  pagination?: PaginationMeta;
+}
+
 // ==========================================
 // 6. Payment Models
 // ==========================================
