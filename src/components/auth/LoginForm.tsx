@@ -12,6 +12,7 @@ import { authService } from "@/services/auth.service";
 import { useAuthStore } from "@/store/authStore";
 import { AuthDivider } from "@/components/auth/AuthDivider";
 import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton";
+import { DemoLoginButtons } from "@/components/auth/DemoLoginButtons";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email address is required").email("Please enter a valid email address"),
@@ -143,6 +144,8 @@ export function LoginForm() {
           Register now
         </Link>
       </div>
+
+      <DemoLoginButtons />
     </div>
   );
 }
