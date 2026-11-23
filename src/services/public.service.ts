@@ -63,6 +63,15 @@ export const publicService = {
     return res.data;
   },
 
+  async getPublicBloodRequestById(
+    requestId: string
+  ): Promise<ApiResponse<BloodRequest>> {
+    const res = await apiClient.get<ApiResponse<BloodRequest>>(
+      `/blood-requests/${requestId}`
+    );
+    return res.data;
+  },
+
   async getPublicDonors(
     params?: PublicDonorParams
   ): Promise<ApiResponse<PublicDonor[]>> {

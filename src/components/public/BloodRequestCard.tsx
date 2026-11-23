@@ -18,7 +18,7 @@ export function BloodRequestCard({ request, detailsHref }: BloodRequestCardProps
   const unitsFulfilled = request.unitsFulfilled || 0;
   const progressPercent = Math.min(100, Math.round((unitsFulfilled / unitsNeeded) * 100));
 
-  const targetUrl = detailsHref || `/requester/requests/${request.id}`;
+  const targetUrl = detailsHref || `/blood-requests/${request.id}`;
 
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
