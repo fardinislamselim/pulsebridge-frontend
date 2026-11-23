@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import { useAuthStore } from "@/store/authStore";
 import apiClient from "@/lib/axios";
 import { toast } from "sonner";
@@ -12,16 +13,25 @@ import { UserAvatar } from "@/components/shared/UserAvatar";
 export function NavbarAuthActions() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { isAuthenticated, user, logout } = useAuthStore();
+  const { isAuthenticated, user, logout, initializeFromStorage } = useAuthStore();
 
   useEffect(() => {
+    // Check if auth token exists in cookie or storage
+    const cookieToken = Cookies.get("accessToken");
+    if (!cookieToken) {
+      initializeFromStorage();
+    }
     setMounted(true);
-  }, []);
+  }, [initializeFromStorage]);
 
   const handleLogout = async () => {
     try {
       await apiClient.post("/auth/logout").catch(() => {});
     } finally {
+      // Cleanly remove all auth cookies
+      Cookies.remove("accessToken", { path: "/" });
+      Cookies.remove("refreshToken", { path: "/" });
+      Cookies.remove("userRole", { path: "/" });
       logout();
       toast.success("Signed out successfully", {
         description: "You have been logged out of your session.",
@@ -43,11 +53,11 @@ export function NavbarAuthActions() {
           Sign In
         </Link>
         <Link
-          href="/register?role=DONOR"
+          href="/register"
           className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-red-700"
         >
           <UserPlus className="h-3.5 w-3.5" />
-          Join as Donor
+          Register
         </Link>
       </div>
     );
@@ -100,6 +110,7 @@ export function NavbarAuthActions() {
     );
   }
 
+  // When unauthenticated, show clean Sign In & Register buttons
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       <Link
@@ -110,11 +121,11 @@ export function NavbarAuthActions() {
         Sign In
       </Link>
       <Link
-        href="/register?role=DONOR"
+        href="/register"
         className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
       >
         <UserPlus className="h-3.5 w-3.5" />
-        Join as Donor
+        Register
       </Link>
     </div>
   );

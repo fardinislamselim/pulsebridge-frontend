@@ -21,13 +21,18 @@ interface DemoAccountConfig {
   badgeClass: string;
 }
 
+const DEMO_ADMIN_PASSWORD =
+  process.env.NEXT_PUBLIC_DEMO_ADMIN_PASSWORD || "AdminSecurePassword123!";
+const DEMO_USER_PASSWORD =
+  process.env.NEXT_PUBLIC_DEMO_USER_PASSWORD || "DemoPassword123!";
+
 const DEMO_ACCOUNTS: DemoAccountConfig[] = [
   {
     role: "REQUESTER",
     label: "Alice Rahman (Requester)",
     roleBadge: "Patient / Requester",
     email: "recipient.alice@pulsebridge.com",
-    password: "DemoPassword123!",
+    password: DEMO_USER_PASSWORD,
     redirectUrl: "/requester",
     icon: UserIcon,
     borderClass: "hover:border-blue-500 hover:bg-blue-50/40 dark:hover:border-blue-900/60 dark:hover:bg-blue-950/20",
@@ -38,7 +43,7 @@ const DEMO_ACCOUNTS: DemoAccountConfig[] = [
     label: "John Doe (Donor • O+)",
     roleBadge: "Voluntary Donor",
     email: "donor.john@pulsebridge.com",
-    password: "DemoPassword123!",
+    password: DEMO_USER_PASSWORD,
     redirectUrl: "/donor",
     icon: HeartIcon,
     borderClass: "hover:border-emerald-500 hover:bg-emerald-50/40 dark:hover:border-emerald-900/60 dark:hover:bg-emerald-950/20",
@@ -49,7 +54,7 @@ const DEMO_ACCOUNTS: DemoAccountConfig[] = [
     label: "PulseBridge Admin",
     roleBadge: "System Admin",
     email: "admin@pulsebridge.com",
-    password: "AdminPassword123!",
+    password: DEMO_ADMIN_PASSWORD,
     redirectUrl: "/admin",
     icon: ShieldAlertIcon,
     borderClass: "hover:border-purple-500 hover:bg-purple-50/40 dark:hover:border-purple-900/60 dark:hover:bg-purple-950/20",
@@ -76,7 +81,13 @@ export function DemoLoginButtons() {
       router.refresh();
     },
     onError: (err: any) => {
-      const msg = err?.response?.data?.message || "Demo login failed. Please verify seed credentials.";
+      const serverMessage =
+        err?.response?.data?.message ||
+        (typeof err?.response?.data === "string" ? err.response.data : null) ||
+        err?.message;
+      const msg = serverMessage
+        ? `Demo login failed: ${serverMessage}`
+        : "Demo login failed. Ensure the backend server is running and database seed is completed.";
       toast.error(msg);
       setActiveRole(null);
     },

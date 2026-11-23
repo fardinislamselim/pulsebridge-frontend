@@ -73,12 +73,16 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
-        // Clear cookies
+        // Clear all cookies
         Cookies.remove("accessToken", { path: "/" });
+        Cookies.remove("refreshToken", { path: "/" });
         Cookies.remove("userRole", { path: "/" });
 
-        // Clear local storage and tokens
+        // Clear local storage and memory tokens
         tokenStorage.clearAll();
+        try {
+          localStorage.removeItem("pulsebridge_auth_store");
+        } catch {}
 
         // Reset state
         set({
@@ -90,16 +94,29 @@ export const useAuthStore = create<AuthState>()(
       },
 
       initializeFromStorage: () => {
-        const token = tokenStorage.getAccessToken() || Cookies.get("accessToken");
-        const role = Cookies.get("userRole") as UserRole | undefined;
+        const cookieToken = Cookies.get("accessToken");
+        const storedToken = tokenStorage.getAccessToken();
+        const activeToken = cookieToken || storedToken;
         const currentUser = get().user;
 
-        if (token && currentUser) {
+        if (activeToken && currentUser) {
+          // Sync tokens if only one was present
+          if (!cookieToken && activeToken) {
+            Cookies.set("accessToken", activeToken, { path: "/", sameSite: "lax" });
+          }
+          if (!storedToken && activeToken) {
+            tokenStorage.setAccessToken(activeToken);
+          }
           set({
-            accessToken: token,
+            accessToken: activeToken,
             isAuthenticated: true,
           });
-        } else if (!token) {
+        } else {
+          // When no active token exists, purge stale user and state completely
+          tokenStorage.clearAll();
+          try {
+            localStorage.removeItem("pulsebridge_auth_store");
+          } catch {}
           set({
             user: null,
             accessToken: null,
