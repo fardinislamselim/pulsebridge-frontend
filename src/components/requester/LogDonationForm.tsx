@@ -232,12 +232,22 @@ export function LogDonationForm() {
       {/* Main Logging Form Card */}
       <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <form
-          onSubmit={handleSubmit((data) =>
-            logDonationMutation.mutateAsync({
-              ...data,
+          onSubmit={handleSubmit((data) => {
+            const isoDonationDate = data.donationDate
+              ? new Date(data.donationDate).toISOString()
+              : new Date().toISOString();
+
+            return logDonationMutation.mutateAsync({
               donorId: data.donorProfileId,
-            })
-          )}
+              donorProfileId: data.donorProfileId,
+              bloodRequestId: data.bloodRequestId,
+              unitsDonated: Number(data.unitsDonated),
+              hospitalName: data.hospitalName?.trim() || undefined,
+              hospitalAddress: data.hospitalAddress?.trim() || undefined,
+              donationDate: isoDonationDate,
+              notes: data.notes?.trim() || undefined,
+            });
+          })}
           className="space-y-6 text-xs"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

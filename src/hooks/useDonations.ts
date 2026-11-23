@@ -24,6 +24,9 @@ export function useCreateDonation() {
       });
       queryClient.invalidateQueries({ queryKey: ["my-blood-requests"] });
       queryClient.invalidateQueries({ queryKey: ["donations"] });
+      queryClient.invalidateQueries({ queryKey: ["admin-donations"] });
+      queryClient.invalidateQueries({ queryKey: ["my-donations"] });
+      queryClient.invalidateQueries({ queryKey: ["admin-overview"] });
 
       if (variables.bloodRequestId) {
         router.push(`/requester/requests/${variables.bloodRequestId}`);

@@ -49,8 +49,24 @@ export function VerifyDonationDialog({ donation, onClose }: VerifyDonationDialog
         </div>
 
         <div className="text-xs space-y-1 text-slate-600 dark:text-slate-300">
-          <p><strong>Facility:</strong> {donation.hospitalName || "Registered Hospital"}</p>
-          <p><strong>Volume:</strong> {donation.unitsDonated} {donation.unitsDonated === 1 ? "Unit" : "Units"}</p>
+          <p>
+            <strong>Donor:</strong>{" "}
+            {(donation as any)?.donorName ||
+              donation?.donor?.user?.name ||
+              donation?.donor?.name ||
+              (donation as any)?.donorProfile?.user?.name ||
+              "Verified Blood Donor"}
+          </p>
+          <p>
+            <strong>Facility:</strong>{" "}
+            {donation.hospitalName ||
+              donation.bloodRequest?.hospitalName ||
+              "Registered Hospital"}
+          </p>
+          <p>
+            <strong>Volume:</strong> {donation.unitsDonated ?? 1}{" "}
+            {(donation.unitsDonated ?? 1) === 1 ? "Unit" : "Units"}
+          </p>
         </div>
 
         <div>

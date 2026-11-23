@@ -53,7 +53,37 @@ export const adminService = {
 
   // Moderation & Governance: Donations
   async getAdminDonations(params?: any): Promise<ApiResponse<Donation[]>> {
-    return (await apiClient.get<ApiResponse<Donation[]>>("/admin/donations", { params })).data;
+    let raw: any;
+    try {
+      raw = (await apiClient.get("/admin/donations", { params })).data;
+    } catch (err: any) {
+      if (err.response?.status === 404) {
+        raw = (await apiClient.get("/donations", { params })).data;
+      } else {
+        throw err;
+      }
+    }
+
+    // Safely normalize list array from various response wrappers
+    const items: Donation[] = Array.isArray(raw?.data)
+      ? raw.data
+      : Array.isArray(raw?.data?.donations)
+      ? raw.data.donations
+      : Array.isArray(raw?.data?.items)
+      ? raw.data.items
+      : Array.isArray(raw?.data?.data)
+      ? raw.data.data
+      : Array.isArray(raw)
+      ? raw
+      : [];
+
+    return {
+      success: raw?.success ?? true,
+      statusCode: raw?.statusCode ?? 200,
+      message: raw?.message || "Donations retrieved successfully",
+      data: items,
+      meta: raw?.meta,
+    };
   },
   async verifyDonation(id: string, notes?: string): Promise<ApiResponse<Donation>> {
     return (await apiClient.patch<ApiResponse<Donation>>(`/donations/${id}/verify`, { notes })).data;
