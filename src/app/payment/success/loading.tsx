@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function PaymentSuccessLoading() {
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
         <div className="flex flex-col items-center space-y-3">
           <Skeleton className="h-14 w-14 rounded-full" />
           <Skeleton className="h-6 w-48 rounded" />

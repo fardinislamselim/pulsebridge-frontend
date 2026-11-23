@@ -86,7 +86,7 @@ export function GoogleLoginButton() {
               toast.info("Google OAuth Client ID is not configured in environment variables.");
             }
           }}
-          className="flex h-10 w-full items-center justify-center gap-2.5 rounded-xl border border-slate-300 bg-white px-4 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+          className="flex h-10 w-full items-center justify-center gap-2.5 rounded-xl border border-slate-300 bg-white px-4 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24">
             <path

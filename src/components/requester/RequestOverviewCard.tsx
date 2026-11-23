@@ -12,7 +12,7 @@ export function RequestOverviewCard({ request }: RequestOverviewCardProps) {
   const fulfillmentPercent = Math.min(100, Math.round((unitsFulfilled / unitsNeeded) * 100));
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-400">
@@ -39,12 +39,12 @@ export function RequestOverviewCard({ request }: RequestOverviewCardProps) {
       <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
         <div
           className={`h-full transition-all duration-500 rounded-full ${
-            fulfillmentPercent >= 100
-              ? "bg-emerald-500"
-              : fulfillmentPercent > 0
-              ? "bg-amber-500"
-              : "bg-red-500"
-          }`}
+ fulfillmentPercent >= 100
+ ? "bg-emerald-500"
+ : fulfillmentPercent > 0
+ ? "bg-amber-500"
+ : "bg-red-500"
+ }`}
           style={{ width: `${fulfillmentPercent}%` }}
         />
       </div>

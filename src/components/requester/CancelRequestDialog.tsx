@@ -55,7 +55,7 @@ export function CancelRequestDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+      <div className="relative w-full max-w-md rounded-2xl bg-white p-6 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-3 text-red-600">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 dark:bg-red-950/60">
             <AlertTriangle className="h-5 w-5" />
@@ -84,10 +84,10 @@ export function CancelRequestDialog({
               placeholder="e.g., Blood arranged from hospital bank or donor arrived."
               {...register("reason")}
               className={`w-full rounded-lg border p-2 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                errors.reason
-                  ? "border-red-500 focus:ring-red-500/20"
-                  : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-              }`}
+ errors.reason
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
             />
             {errors.reason && (
               <p className="mt-1 text-xs text-red-600 font-medium">
@@ -108,7 +108,7 @@ export function CancelRequestDialog({
             <button
               type="submit"
               disabled={cancelMutation.isPending}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30 hover:bg-red-700 disabled:opacity-60"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-red-700 disabled:opacity-60"
             >
               {cancelMutation.isPending ? (
                 <>

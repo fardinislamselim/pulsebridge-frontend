@@ -46,10 +46,10 @@ export function UsersGovernanceTable() {
               key={r}
               onClick={() => setRoleFilter(r)}
               className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
-                roleFilter === r
-                  ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              }`}
+ roleFilter === r
+ ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white "
+ : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+ }`}
             >
               {r}
             </button>
@@ -57,7 +57,7 @@ export function UsersGovernanceTable() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden dark:border-slate-800 dark:bg-slate-900">
         {isLoading ? (
           <div className="p-4">
             <TableSkeleton rows={6} columns={5} />
@@ -119,10 +119,10 @@ export function UsersGovernanceTable() {
                         }
                         disabled={updateStatusMutation.isPending}
                         className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                          user.status === "ACTIVE"
-                            ? "bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/60 dark:text-amber-300"
-                            : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-300"
-                        }`}
+ user.status === "ACTIVE"
+ ? "bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/60 dark:text-amber-300"
+ : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-300"
+ }`}
                       >
                         {user.status === "ACTIVE" ? (
                           <>

@@ -6,7 +6,7 @@ export default function PublicBloodRequestDetailsLoading() {
     <div className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl space-y-6">
       <Skeleton className="h-4 w-36 rounded" />
 
-      <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-8">
+      <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
           <div className="space-y-2">
             <div className="flex items-center gap-2">

@@ -39,7 +39,7 @@ export function QuickCompatibilityWidget() {
   const isCompatible = COMPATIBILITY_RULES[donorGroup]?.includes(recipientGroup) ?? false;
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400">
@@ -71,10 +71,10 @@ export function QuickCompatibilityWidget() {
                 type="button"
                 onClick={() => setDonorGroup(g.value)}
                 className={`py-2 rounded-xl text-center font-bold transition-all border ${
-                  donorGroup === g.value
-                    ? "bg-red-600 text-white border-red-600 shadow-md shadow-red-600/30"
-                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
-                }`}
+ donorGroup === g.value
+ ? "bg-red-600 text-white border-red-600 "
+ : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+ }`}
               >
                 {g.label}
               </button>
@@ -94,10 +94,10 @@ export function QuickCompatibilityWidget() {
                 type="button"
                 onClick={() => setRecipientGroup(g.value)}
                 className={`py-2 rounded-xl text-center font-bold transition-all border ${
-                  recipientGroup === g.value
-                    ? "bg-slate-900 text-white border-slate-900 shadow-md dark:bg-white dark:text-slate-900 dark:border-white"
-                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
-                }`}
+ recipientGroup === g.value
+ ? "bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white"
+ : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+ }`}
               >
                 {g.label}
               </button>
@@ -109,10 +109,10 @@ export function QuickCompatibilityWidget() {
       {/* Result Callout */}
       <div
         className={`rounded-xl p-4 border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${
-          isCompatible
-            ? "border-emerald-200 bg-emerald-50/80 text-emerald-950 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200"
-            : "border-red-200 bg-red-50/80 text-red-950 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200"
-        }`}
+ isCompatible
+ ? "border-emerald-200 bg-emerald-50/80 text-emerald-950 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200"
+ : "border-red-200 bg-red-50/80 text-red-950 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200"
+ }`}
       >
         <div className="flex items-center gap-3">
           {isCompatible ? (
@@ -135,7 +135,7 @@ export function QuickCompatibilityWidget() {
         <div className="flex items-center gap-2 shrink-0">
           <Link
             href="/requester/requests/new"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-red-700 transition"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition"
           >
             Request Blood <ArrowRight className="h-3 w-3" />
           </Link>

@@ -51,7 +51,7 @@ export function BloodRequestFilterBar() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-3">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 text-xs">
         <div className="flex items-center gap-1.5 font-bold text-slate-800 dark:text-slate-200">
           <Filter className="h-4 w-4 text-red-600" />

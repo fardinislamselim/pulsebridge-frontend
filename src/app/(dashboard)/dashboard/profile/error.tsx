@@ -28,7 +28,7 @@ export default function ProfileError({
         <button
           type="button"
           onClick={() => reset()}
-          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition"
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700 transition"
         >
           <RotateCcw className="h-3.5 w-3.5" />
           Try Again

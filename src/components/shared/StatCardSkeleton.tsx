@@ -17,9 +17,9 @@ export function StatCardSkeleton({ count = 1, className }: StatCardSkeletonProps
         <div
           key={index}
           className={cn(
-            "rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900",
-            className
-          )}
+ "rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900",
+ className
+ )}
         >
           <div className="flex items-center justify-between">
             <Skeleton className="h-3.5 w-24 rounded" />

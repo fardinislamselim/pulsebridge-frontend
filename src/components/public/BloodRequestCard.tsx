@@ -21,7 +21,7 @@ export function BloodRequestCard({ request, detailsHref }: BloodRequestCardProps
   const targetUrl = detailsHref || `/blood-requests/${request.id}`;
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
       <div>
         <div className="flex items-start justify-between gap-2">
           <div>
@@ -67,12 +67,12 @@ export function BloodRequestCard({ request, detailsHref }: BloodRequestCardProps
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
             <div
               className={`h-full rounded-full transition-all ${
-                progressPercent >= 100
-                  ? "bg-emerald-500"
-                  : progressPercent > 0
-                  ? "bg-amber-500"
-                  : "bg-red-500"
-              }`}
+ progressPercent >= 100
+ ? "bg-emerald-500"
+ : progressPercent > 0
+ ? "bg-amber-500"
+ : "bg-red-500"
+ }`}
               style={{ width: `${progressPercent}%` }}
             />
           </div>

@@ -91,10 +91,10 @@ export function UrlPagination({
                 type="button"
                 onClick={() => handlePageChange(p)}
                 className={`h-9 min-w-9 px-2.5 rounded-xl font-bold transition-all text-xs ${
-                  currentPage === p
-                    ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
-                }`}
+ currentPage === p
+ ? "bg-red-600 text-white "
+ : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+ }`}
               >
                 {p}
               </button>

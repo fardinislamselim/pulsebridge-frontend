@@ -48,19 +48,19 @@ export function BloodGroupSelector({
               type="button"
               onClick={() => onSelect(item.value)}
               className={`relative flex flex-col items-center justify-center py-3.5 px-3 rounded-2xl border transition-all text-center focus:outline-none focus:ring-2 focus:ring-red-500/40 ${
-                isSelected
-                  ? "bg-gradient-to-b from-red-600 to-red-700 text-white border-red-600 shadow-md shadow-red-600/25 scale-[1.02]"
-                  : "bg-white hover:bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/80"
-              }`}
+ isSelected
+ ? "bg-gradient-to-b from-red-600 to-red-700 text-white border-red-600 scale-[1.02]"
+ : "bg-white hover:bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/80"
+ }`}
             >
               <span className="text-xl font-black tracking-tight">{item.label}</span>
               {item.tag && (
                 <span
                   className={`mt-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border leading-tight ${
-                    isSelected
-                      ? "bg-white/20 text-white border-white/30"
-                      : item.tagColor
-                  }`}
+ isSelected
+ ? "bg-white/20 text-white border-white/30"
+ : item.tagColor
+ }`}
                 >
                   {item.tag}
                 </span>

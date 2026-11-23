@@ -61,7 +61,7 @@ export default function AboutPage() {
             return (
               <div
                 key={item.step}
-                className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-3 relative overflow-hidden"
+                className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-3 relative overflow-hidden"
               >
                 <div className="text-4xl font-extrabold text-slate-100 dark:text-slate-800 absolute right-4 top-2 pointer-events-none select-none">
                   {item.step}
@@ -91,7 +91,7 @@ export default function AboutPage() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/register?role=DONOR"
-            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition"
+            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-red-700 transition"
           >
             Become a Verified Donor <ArrowRight className="h-3.5 w-3.5" />
           </Link>

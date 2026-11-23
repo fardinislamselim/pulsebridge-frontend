@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/authStore";
 import apiClient from "@/lib/axios";
 import { toast } from "sonner";
 import { Logo } from "@/components/shared/Logo";
+import { UserAvatar } from "@/components/shared/UserAvatar";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -176,20 +177,20 @@ export function DashboardSidebar() {
               href={item.href}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                "group flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all",
-                isActive
-                  ? "bg-red-600 text-white shadow-sm shadow-red-600/30 font-bold"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
-              )}
+ "group flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all",
+ isActive
+ ? "bg-red-600 text-white font-bold"
+ : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+ )}
             >
               <div className="flex items-center gap-3">
                 <Icon
                   className={cn(
-                    "h-4 w-4 shrink-0 transition-colors",
-                    isActive
-                      ? "text-white"
-                      : "text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200"
-                  )}
+ "h-4 w-4 shrink-0 transition-colors",
+ isActive
+ ? "text-white"
+ : "text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200"
+ )}
                 />
                 <span>{item.label}</span>
               </div>
@@ -241,10 +242,12 @@ export function DashboardSidebar() {
       {/* User Footer Profile & Sign Out */}
       <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between gap-2 rounded-xl bg-slate-50 p-2.5 dark:bg-slate-900/80">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-600 text-xs font-bold text-white shadow-sm">
-              {user?.name ? user.name[0].toUpperCase() : "U"}
-            </div>
+          <Link
+            href="/dashboard/profile"
+            className="flex items-center gap-2.5 min-w-0 hover:opacity-80 transition"
+            title="View Profile Settings"
+          >
+            <UserAvatar user={user} size="sm" />
             <div className="min-w-0 flex-1">
               <div className="truncate text-xs font-bold text-slate-900 dark:text-white">
                 {user?.name || "Pulse User"}
@@ -253,12 +256,12 @@ export function DashboardSidebar() {
                 {user?.email || ""}
               </div>
             </div>
-          </div>
+          </Link>
 
           <button
             type="button"
             onClick={handleLogout}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-red-50 hover:text-red-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-red-950/60 dark:hover:text-red-400"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:bg-red-50 hover:text-red-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-red-950/60 dark:hover:text-red-400"
             title="Sign Out"
             aria-label="Sign Out"
           >
@@ -277,7 +280,7 @@ export function DashboardSidebar() {
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
           aria-label="Toggle Dashboard Navigation"
         >
           <Menu className="h-5 w-5" />
@@ -291,7 +294,7 @@ export function DashboardSidebar() {
             className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white shadow-2xl dark:bg-slate-950">
+          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white dark:bg-slate-950">
             <button
               type="button"
               onClick={() => setMobileOpen(false)}

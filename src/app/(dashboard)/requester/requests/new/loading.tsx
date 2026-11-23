@@ -19,7 +19,7 @@ export default function NewBloodRequestLoading() {
       </div>
 
       {/* Wizard Card Skeleton */}
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-8">
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-8">
         {/* Progress Stepper Skeleton */}
         <div className="flex justify-between items-center px-4">
           {[1, 2, 3].map((step) => (

@@ -116,7 +116,7 @@ export function ActiveSessionsList() {
   const otherSessionsCount = sessions.filter((s) => !s.isCurrent).length;
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       {/* Title & Bulk Action */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
@@ -161,7 +161,7 @@ export function ActiveSessionsList() {
                 className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-slate-900/60"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-600 shadow-sm border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-600 border border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
                     <DeviceIcon className="h-5 w-5" />
                   </div>
 

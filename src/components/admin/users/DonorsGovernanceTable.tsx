@@ -43,7 +43,7 @@ export function DonorsGovernanceTable() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden dark:border-slate-800 dark:bg-slate-900">
         {isLoading ? (
           <div className="p-4">
             <TableSkeleton rows={6} columns={6} />
@@ -112,10 +112,10 @@ export function DonorsGovernanceTable() {
                           }
                           disabled={toggleVerificationMutation.isPending}
                           className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
-                            donor.isVerified
-                              ? "bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/60 dark:text-blue-300"
-                              : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400"
-                          }`}
+ donor.isVerified
+ ? "bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/60 dark:text-blue-300"
+ : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400"
+ }`}
                         >
                           {donor.isVerified ? (
                             <>

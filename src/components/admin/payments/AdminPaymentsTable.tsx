@@ -52,7 +52,7 @@ export function AdminPaymentsTable() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden dark:border-slate-800 dark:bg-slate-900">
         {isLoading ? (
           <div className="p-4">
             <TableSkeleton rows={6} columns={6} />

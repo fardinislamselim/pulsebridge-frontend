@@ -40,12 +40,12 @@ export function WizardStep3Urgency({
                 type="button"
                 onClick={() => setValue("urgency", tier.value)}
                 className={`p-3 rounded-xl border text-left transition-all ${
-                  isSelected
-                    ? tier.value === "EMERGENCY"
-                      ? "border-red-600 bg-red-50 text-red-900 dark:bg-red-950/40 dark:text-red-100"
-                      : "border-amber-500 bg-amber-50 text-amber-900 dark:bg-amber-950/40 dark:text-amber-100"
-                    : "border-slate-200 bg-slate-50/50 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900"
-                }`}
+ isSelected
+ ? tier.value === "EMERGENCY"
+ ? "border-red-600 bg-red-50 text-red-900 dark:bg-red-950/40 dark:text-red-100"
+ : "border-amber-500 bg-amber-50 text-amber-900 dark:bg-amber-950/40 dark:text-amber-100"
+ : "border-slate-200 bg-slate-50/50 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900"
+ }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-xs">{tier.label}</span>

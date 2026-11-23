@@ -236,10 +236,10 @@ function ForgotPasswordWizardInternal() {
                   disabled={requestOtpMutation.isPending}
                   {...formStep1.register("email")}
                   className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    formStep1.formState.errors.email
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ formStep1.formState.errors.email
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 />
               </div>
               {formStep1.formState.errors.email && (
@@ -253,7 +253,7 @@ function ForgotPasswordWizardInternal() {
             <button
               type="submit"
               disabled={requestOtpMutation.isPending}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {requestOtpMutation.isPending ? (
                 <>
@@ -308,10 +308,10 @@ function ForgotPasswordWizardInternal() {
                   disabled={verifyOtpMutation.isPending}
                   {...formStep2.register("otp")}
                   className={`w-full rounded-xl border bg-white py-3 text-center font-mono text-2xl font-bold tracking-widest text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    formStep2.formState.errors.otp
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ formStep2.formState.errors.otp
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 />
               </div>
               {formStep2.formState.errors.otp && (
@@ -325,7 +325,7 @@ function ForgotPasswordWizardInternal() {
             <button
               type="submit"
               disabled={verifyOtpMutation.isPending}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {verifyOtpMutation.isPending ? (
                 <>
@@ -402,10 +402,10 @@ function ForgotPasswordWizardInternal() {
                   disabled={resetPasswordMutation.isPending}
                   {...formStep3.register("newPassword")}
                   className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    formStep3.formState.errors.newPassword
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ formStep3.formState.errors.newPassword
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 />
                 <button
                   type="button"
@@ -448,10 +448,10 @@ function ForgotPasswordWizardInternal() {
                   disabled={resetPasswordMutation.isPending}
                   {...formStep3.register("confirmPassword")}
                   className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    formStep3.formState.errors.confirmPassword
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ formStep3.formState.errors.confirmPassword
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 />
               </div>
               {formStep3.formState.errors.confirmPassword && (
@@ -471,36 +471,36 @@ function ForgotPasswordWizardInternal() {
                 <div className="grid grid-cols-2 gap-1">
                   <span
                     className={`flex items-center gap-1 ${
-                      hasMinLength ? "text-emerald-600 font-medium" : "text-slate-400"
-                    }`}
+ hasMinLength ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
                   >
                     <CheckCircle2 className="h-3 w-3" /> 8+ Characters
                   </span>
                   <span
                     className={`flex items-center gap-1 ${
-                      hasUppercase ? "text-emerald-600 font-medium" : "text-slate-400"
-                    }`}
+ hasUppercase ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
                   >
                     <CheckCircle2 className="h-3 w-3" /> 1 Uppercase Letter
                   </span>
                   <span
                     className={`flex items-center gap-1 ${
-                      hasLowercase ? "text-emerald-600 font-medium" : "text-slate-400"
-                    }`}
+ hasLowercase ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
                   >
                     <CheckCircle2 className="h-3 w-3" /> 1 Lowercase Letter
                   </span>
                   <span
                     className={`flex items-center gap-1 ${
-                      hasNumber ? "text-emerald-600 font-medium" : "text-slate-400"
-                    }`}
+ hasNumber ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
                   >
                     <CheckCircle2 className="h-3 w-3" /> 1 Number
                   </span>
                   <span
                     className={`flex items-center gap-1 ${
-                      hasSpecial ? "text-emerald-600 font-medium" : "text-slate-400"
-                    }`}
+ hasSpecial ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
                   >
                     <CheckCircle2 className="h-3 w-3" /> 1 Special Character
                   </span>
@@ -511,7 +511,7 @@ function ForgotPasswordWizardInternal() {
             <button
               type="submit"
               disabled={resetPasswordMutation.isPending}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {resetPasswordMutation.isPending ? (
                 <>

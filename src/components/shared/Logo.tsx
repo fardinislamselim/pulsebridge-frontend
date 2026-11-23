@@ -48,9 +48,9 @@ export function Logo({
       {/* Icon: Medical Blood Drop + Heartbeat Pulse */}
       <div
         className={cn(
-          "relative flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-600 to-red-700 text-white shadow-md shadow-red-600/30 transition-transform hover:scale-105",
-          sizeConfig.iconSize
-        )}
+ "relative flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-600 to-red-700 text-white transition-transform hover:scale-105",
+ sizeConfig.iconSize
+ )}
       >
         <svg
           viewBox="0 0 40 40"
@@ -83,17 +83,17 @@ export function Logo({
         <div className="flex flex-col justify-center leading-none">
           <span
             className={cn(
-              "font-heading font-extrabold tracking-tight text-slate-900 dark:text-white",
-              sizeConfig.textSize
-            )}
+ "font-heading font-extrabold tracking-tight text-slate-900 dark:text-white",
+ sizeConfig.textSize
+ )}
           >
             Pulse<span className="text-red-600 dark:text-red-500">Bridge</span>
           </span>
           <span
             className={cn(
-              "font-sans font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5",
-              sizeConfig.subtextSize
-            )}
+ "font-sans font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5",
+ sizeConfig.subtextSize
+ )}
           >
             Blood & Emergency Network
           </span>

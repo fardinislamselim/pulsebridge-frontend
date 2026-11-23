@@ -21,9 +21,9 @@ export function TableSkeleton({
   return (
     <div
       className={cn(
-        "w-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900",
-        className
-      )}
+ "w-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900",
+ className
+ )}
     >
       {showHeader && (
         <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
@@ -52,9 +52,9 @@ export function TableSkeleton({
               <div key={c} className="col-span-2">
                 <Skeleton
                   className={cn(
-                    "h-4 rounded",
-                    c === 0 ? "w-28" : c === 1 ? "w-14" : "w-20"
-                  )}
+ "h-4 rounded",
+ c === 0 ? "w-28" : c === 1 ? "w-14" : "w-20"
+ )}
                 />
               </div>
             ))}

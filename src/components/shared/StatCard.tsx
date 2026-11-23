@@ -27,9 +27,9 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all",
-        className
-      )}
+ "rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 transition-all",
+ className
+ )}
     >
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -37,10 +37,10 @@ export function StatCard({
         </span>
         <div
           className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-xl",
-            iconBgClass,
-            iconColorClass
-          )}
+ "flex h-9 w-9 items-center justify-center rounded-xl",
+ iconBgClass,
+ iconColorClass
+ )}
         >
           <Icon className="h-4 w-4" />
         </div>

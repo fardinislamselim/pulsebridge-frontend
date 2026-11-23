@@ -66,7 +66,7 @@ export default async function PublicBloodRequestDetailsPage({ params }: PageProp
         <ArrowLeft className="h-4 w-4" /> Back to Blood Requests
       </Link>
 
-      <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+      <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div className="flex items-center gap-2">
@@ -97,8 +97,8 @@ export default async function PublicBloodRequestDetailsPage({ params }: PageProp
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
             <div
               className={`h-full rounded-full transition-all ${
-                progressPercent >= 100 ? "bg-emerald-500" : progressPercent > 0 ? "bg-amber-500" : "bg-red-500"
-              }`}
+ progressPercent >= 100 ? "bg-emerald-500" : progressPercent > 0 ? "bg-amber-500" : "bg-red-500"
+ }`}
               style={{ width: `${progressPercent}%` }}
             />
           </div>

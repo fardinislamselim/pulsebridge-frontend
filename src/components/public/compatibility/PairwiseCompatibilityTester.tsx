@@ -33,7 +33,7 @@ export function PairwiseCompatibilityTester() {
   const isCompatible = data?.compatible ?? false;
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
         <div>
           <h3 className="font-heading text-base font-bold text-slate-900 dark:text-white">
@@ -103,19 +103,19 @@ export function PairwiseCompatibilityTester() {
       ) : (
         <div
           className={`rounded-2xl border p-5 transition-all ${
-            isCompatible
-              ? "border-emerald-200 bg-emerald-50/80 text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200"
-              : "border-red-200 bg-red-50/80 text-red-950 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200"
-          }`}
+ isCompatible
+ ? "border-emerald-200 bg-emerald-50/80 text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200"
+ : "border-red-200 bg-red-50/80 text-red-950 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200"
+ }`}
         >
           <div className="flex items-start gap-3.5">
             <div className="mt-0.5 shrink-0">
               {isCompatible ? (
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-md shadow-emerald-500/25">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500 text-white ">
                   <CheckCircle2 className="h-5 w-5" />
                 </div>
               ) : (
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500 text-white shadow-md shadow-red-500/25">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500 text-white ">
                   <XCircle className="h-5 w-5" />
                 </div>
               )}

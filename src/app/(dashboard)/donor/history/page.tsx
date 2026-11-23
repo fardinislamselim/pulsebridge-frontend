@@ -41,7 +41,7 @@ export default function DonationHistoryPage() {
 
         <Link
           href="/blood-requests"
-          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition"
+          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-semibold text-white hover:bg-red-700 transition"
         >
           <HeartHandshake className="h-4 w-4" />
           <span>Find Urgent Requests</span>

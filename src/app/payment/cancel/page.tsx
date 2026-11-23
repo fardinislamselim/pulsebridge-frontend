@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PaymentCancelPage() {
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6 text-center">
+      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
           <XCircleIcon className="h-8 w-8" />
         </div>
@@ -32,7 +32,7 @@ export default function PaymentCancelPage() {
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <Link
             href="/dashboard/support-us"
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white hover:bg-red-700 transition"
           >
             <RotateCcwIcon className="h-3.5 w-3.5" />
             Try Payment Again

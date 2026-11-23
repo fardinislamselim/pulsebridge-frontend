@@ -45,7 +45,7 @@ const STATUS_MAP: Record<string, BadgeConfig> = {
   EMERGENCY: {
     label: "Emergency",
     colorClass:
-      "bg-red-600 text-white border-red-700 shadow-sm shadow-red-600/30",
+      "bg-red-600 text-white border-red-700",
     icon: AlertOctagon,
     pulse: true,
   },
@@ -172,11 +172,11 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center rounded-full border font-semibold select-none transition-colors",
-        sizeStyles,
-        config.colorClass,
-        className
-      )}
+ "inline-flex shrink-0 items-center rounded-full border font-semibold select-none transition-colors",
+ sizeStyles,
+ config.colorClass,
+ className
+ )}
     >
       {showIcon && (
         <span className={cn(config.pulse && "animate-pulse")}>

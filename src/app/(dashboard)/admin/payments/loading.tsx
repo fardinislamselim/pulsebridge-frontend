@@ -13,7 +13,7 @@ export default function AdminPaymentsLoading() {
         <StatCardSkeleton count={4} />
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
         <TableSkeleton rows={8} columns={6} />
       </div>
     </div>

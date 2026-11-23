@@ -136,7 +136,7 @@ function VerifyEmailFormInternal() {
   return (
     <div className="w-full space-y-6">
       <div className="text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 text-red-600 shadow-sm dark:bg-red-950/60 dark:text-red-400">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400">
           <Mail className="h-7 w-7" />
         </div>
         <h2 className="mt-4 font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
@@ -197,7 +197,7 @@ function VerifyEmailFormInternal() {
                 onChange={(e) => handleDigitChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 disabled={verifyMutation.isPending}
-                className="h-12 w-11 sm:h-14 sm:w-12 rounded-xl border border-slate-300 bg-white text-center font-mono text-xl sm:text-2xl font-bold text-slate-900 shadow-sm transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                className="h-12 w-11 sm:h-14 sm:w-12 rounded-xl border border-slate-300 bg-white text-center font-mono text-xl sm:text-2xl font-bold text-slate-900 transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               />
             ))}
           </div>
@@ -207,7 +207,7 @@ function VerifyEmailFormInternal() {
         <button
           type="submit"
           disabled={verifyMutation.isPending || fullOtp.length !== 6 || !email}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {verifyMutation.isPending ? (
             <>

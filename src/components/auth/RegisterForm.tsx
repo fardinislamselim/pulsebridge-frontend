@@ -209,10 +209,10 @@ function RegisterFormInternal() {
             type="button"
             onClick={() => setSelectedRole("REQUESTER")}
             className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
-              selectedRole === "REQUESTER"
-                ? "border-red-600 bg-red-50/70 text-red-900 shadow-sm dark:bg-red-950/40 dark:text-red-200 dark:border-red-600"
-                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
-            }`}
+ selectedRole === "REQUESTER"
+ ? "border-red-600 bg-red-50/70 text-red-900 dark:bg-red-950/40 dark:text-red-200 dark:border-red-600"
+ : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
+ }`}
           >
             <div className="flex items-center gap-1.5 font-bold text-sm">
               <User className="h-4 w-4" />
@@ -227,10 +227,10 @@ function RegisterFormInternal() {
             type="button"
             onClick={() => setSelectedRole("DONOR")}
             className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
-              selectedRole === "DONOR"
-                ? "border-red-600 bg-red-50/70 text-red-900 shadow-sm dark:bg-red-950/40 dark:text-red-200 dark:border-red-600"
-                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
-            }`}
+ selectedRole === "DONOR"
+ ? "border-red-600 bg-red-50/70 text-red-900 dark:bg-red-950/40 dark:text-red-200 dark:border-red-600"
+ : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
+ }`}
           >
             <div className="flex items-center gap-1.5 font-bold text-sm">
               <Droplet className="h-4 w-4 text-red-600" />
@@ -265,10 +265,10 @@ function RegisterFormInternal() {
               disabled={registerMutation.isPending}
               {...register("name")}
               className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                errors.name
-                  ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                  : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-              }`}
+ errors.name
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
             />
           </div>
           {errors.name && (
@@ -300,10 +300,10 @@ function RegisterFormInternal() {
                 disabled={registerMutation.isPending}
                 {...register("email")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.email
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.email
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
             </div>
             {errors.email && (
@@ -333,10 +333,10 @@ function RegisterFormInternal() {
                 disabled={registerMutation.isPending}
                 {...register("phone")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.phone
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.phone
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
             </div>
             {errors.phone && (
@@ -370,10 +370,10 @@ function RegisterFormInternal() {
                   disabled={registerMutation.isPending}
                   {...register("bloodGroup")}
                   className={`mt-1.5 w-full rounded-lg border bg-white py-2.5 px-3 text-sm text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    errors.bloodGroup
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ errors.bloodGroup
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 >
                   <option value="">Select blood group</option>
                   {BLOOD_GROUPS.map((bg) => (
@@ -403,10 +403,10 @@ function RegisterFormInternal() {
                   disabled={registerMutation.isPending}
                   {...register("district")}
                   className={`mt-1.5 w-full rounded-lg border bg-white py-2.5 px-3 text-sm text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                    errors.district
-                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                  }`}
+ errors.district
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                 >
                   <option value="">Select district</option>
                   {BANGLADESH_DISTRICTS.map((dist) => (
@@ -470,10 +470,10 @@ function RegisterFormInternal() {
                 disabled={registerMutation.isPending}
                 {...register("password")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.password
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.password
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
               <button
                 type="button"
@@ -515,10 +515,10 @@ function RegisterFormInternal() {
                 disabled={registerMutation.isPending}
                 {...register("confirmPassword")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.confirmPassword
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.confirmPassword
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
             </div>
             {errors.confirmPassword && (
@@ -539,36 +539,36 @@ function RegisterFormInternal() {
             <div className="grid grid-cols-2 gap-1">
               <span
                 className={`flex items-center gap-1 ${
-                  hasMinLength ? "text-emerald-600 font-medium" : "text-slate-400"
-                }`}
+ hasMinLength ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
               >
                 <CheckCircle2 className="h-3 w-3" /> 8+ Characters
               </span>
               <span
                 className={`flex items-center gap-1 ${
-                  hasUppercase ? "text-emerald-600 font-medium" : "text-slate-400"
-                }`}
+ hasUppercase ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
               >
                 <CheckCircle2 className="h-3 w-3" /> 1 Uppercase Letter
               </span>
               <span
                 className={`flex items-center gap-1 ${
-                  hasLowercase ? "text-emerald-600 font-medium" : "text-slate-400"
-                }`}
+ hasLowercase ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
               >
                 <CheckCircle2 className="h-3 w-3" /> 1 Lowercase Letter
               </span>
               <span
                 className={`flex items-center gap-1 ${
-                  hasNumber ? "text-emerald-600 font-medium" : "text-slate-400"
-                }`}
+ hasNumber ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
               >
                 <CheckCircle2 className="h-3 w-3" /> 1 Number
               </span>
               <span
                 className={`flex items-center gap-1 ${
-                  hasSpecial ? "text-emerald-600 font-medium" : "text-slate-400"
-                }`}
+ hasSpecial ? "text-emerald-600 font-medium" : "text-slate-400"
+ }`}
               >
                 <CheckCircle2 className="h-3 w-3" /> 1 Special Character
               </span>
@@ -580,7 +580,7 @@ function RegisterFormInternal() {
         <button
           type="submit"
           disabled={registerMutation.isPending}
-          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {registerMutation.isPending ? (
             <>

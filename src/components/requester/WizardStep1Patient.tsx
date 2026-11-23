@@ -45,10 +45,10 @@ export function WizardStep1Patient({
             placeholder="e.g., Fatima Begum"
             {...register("patientName")}
             className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-              errors.patientName
-                ? "border-red-500 focus:ring-red-500/20"
-                : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-            }`}
+ errors.patientName
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
           />
         </div>
         {errors.patientName && (
@@ -70,10 +70,10 @@ export function WizardStep1Patient({
                 type="button"
                 onClick={() => setValue("bloodGroup", bg.value, { shouldValidate: true })}
                 className={`p-3 rounded-xl border text-left transition-all ${
-                  isSelected
-                    ? "border-red-600 bg-red-50/80 shadow-sm dark:bg-red-950/40"
-                    : "border-slate-200 bg-slate-50/50 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900"
-                }`}
+ isSelected
+ ? "border-red-600 bg-red-50/80 dark:bg-red-950/40"
+ : "border-slate-200 bg-slate-50/50 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900"
+ }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-base font-extrabold text-slate-900 dark:text-white">

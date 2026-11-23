@@ -22,12 +22,12 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
           <div key={s.num} className="flex items-center gap-3">
             <div
               className={`flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold transition-all ${
-                isDone
-                  ? "bg-emerald-600 text-white"
-                  : isActive
-                  ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                  : "bg-slate-100 text-slate-400 dark:bg-slate-800"
-              }`}
+ isDone
+ ? "bg-emerald-600 text-white"
+ : isActive
+ ? "bg-red-600 text-white "
+ : "bg-slate-100 text-slate-400 dark:bg-slate-800"
+ }`}
             >
               {isDone ? <CheckCircle2 className="h-4 w-4" /> : s.num}
             </div>
@@ -37,8 +37,8 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
               </span>
               <span
                 className={`text-xs font-bold ${
-                  isActive ? "text-slate-900 dark:text-white" : "text-slate-400"
-                }`}
+ isActive ? "text-slate-900 dark:text-white" : "text-slate-400"
+ }`}
               >
                 {s.label}
               </span>

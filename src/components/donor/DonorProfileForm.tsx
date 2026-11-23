@@ -36,7 +36,7 @@ export function DonorProfileForm() {
   if (isLoading) return <FormSkeleton fields={6} columns={2} />;
 
   return (
-    <form onSubmit={handleSubmit((d) => updateMutation.mutate(d))} className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <form onSubmit={handleSubmit((d) => updateMutation.mutate(d))} className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800 text-xs">
         <div>
           <h2 className="font-heading text-base font-bold text-slate-900 dark:text-white">Donor Clinical Profile</h2>
@@ -115,7 +115,7 @@ export function DonorProfileForm() {
       </div>
 
       <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-        <button type="submit" disabled={updateMutation.isPending || !isDirty} className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 disabled:opacity-50 transition">
+        <button type="submit" disabled={updateMutation.isPending || !isDirty} className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-red-700 disabled:opacity-50 transition">
           {updateMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           <span>Save Profile Changes</span>
         </button>

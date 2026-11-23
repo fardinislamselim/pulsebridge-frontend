@@ -75,8 +75,8 @@ export function LoginForm() {
               disabled={isSubmitting}
               {...register("email")}
               className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                errors.email ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-              }`}
+ errors.email ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
             />
           </div>
           {errors.email && <p className="mt-1 text-red-600 font-medium">{errors.email.message}</p>}
@@ -97,8 +97,8 @@ export function LoginForm() {
               disabled={isSubmitting}
               {...register("password")}
               className={`w-full rounded-xl border pl-9 pr-10 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                errors.password ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-              }`}
+ errors.password ? "border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
             />
             <button
               type="button"
@@ -115,7 +115,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 disabled:opacity-70 transition"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-sm font-semibold text-white hover:bg-red-700 disabled:opacity-70 transition"
         >
           {isSubmitting ? (
             <>

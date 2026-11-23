@@ -25,7 +25,7 @@ export function PaymentSuccessClient() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+      <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
         <div className="flex flex-col items-center space-y-3">
           <Skeleton className="h-14 w-14 rounded-full" />
           <Skeleton className="h-6 w-48 rounded" />
@@ -43,7 +43,7 @@ export function PaymentSuccessClient() {
 
   if (isError || !paymentId) {
     return (
-      <div className="mx-auto max-w-lg rounded-3xl border border-amber-200 bg-white p-8 text-center shadow-sm dark:border-amber-900/40 dark:bg-slate-900 space-y-5">
+      <div className="mx-auto max-w-lg rounded-3xl border border-amber-200 bg-white p-8 text-center dark:border-amber-900/40 dark:bg-slate-900 space-y-5">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400">
           <AlertTriangleIcon className="h-7 w-7" />
         </div>
@@ -73,7 +73,7 @@ export function PaymentSuccessClient() {
   const transactionId = result.transactionId || result.paymentId || paymentId;
 
   return (
-    <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       <div className="flex flex-col items-center text-center space-y-2">
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
           <CheckCircle2Icon className="h-8 w-8" />
@@ -116,7 +116,7 @@ export function PaymentSuccessClient() {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 pt-2">
-        <Link href="/dashboard/support-us" className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition">
+        <Link href="/dashboard/support-us" className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white hover:bg-red-700 transition">
           View Contribution History
           <ArrowRightIcon className="h-3.5 w-3.5" />
         </Link>

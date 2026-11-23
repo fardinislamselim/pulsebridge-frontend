@@ -115,7 +115,7 @@ export function DemoLoginButtons() {
               className={`flex items-center justify-between p-3 rounded-xl border border-slate-200/90 bg-slate-50/70 text-left transition-all dark:border-slate-800 dark:bg-slate-900/60 ${account.borderClass} disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200/60 dark:border-slate-700">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700">
                   <Icon className="h-4 w-4 text-slate-700 dark:text-slate-300" />
                 </div>
                 <div>

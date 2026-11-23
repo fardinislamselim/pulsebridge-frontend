@@ -14,7 +14,7 @@ export default function SupportUsLoading() {
           <FormSkeleton fields={4} columns={1} showButtons={true} />
         </div>
         <div className="lg:col-span-7">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
             <TableSkeleton rows={4} columns={5} />
           </div>
         </div>

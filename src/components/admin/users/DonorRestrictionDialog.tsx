@@ -142,7 +142,7 @@ export function DonorRestrictionDialog({
             <button
               type="submit"
               disabled={updateRestrictionMutation.isPending}
-              className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all shadow-sm disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all disabled:opacity-50"
             >
               {updateRestrictionMutation.isPending ? "Updating..." : "Save Restrictions"}
             </button>

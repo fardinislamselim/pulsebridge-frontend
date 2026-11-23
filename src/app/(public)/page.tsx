@@ -49,13 +49,13 @@ export default async function HomePage() {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <Link
             href="/requester/requests/new"
-            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/30 hover:bg-red-700 transition"
+            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white hover:bg-red-700 transition"
           >
             Request Blood Now <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/register?role=DONOR"
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 transition"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 transition"
           >
             Join as Blood Donor
           </Link>

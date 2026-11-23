@@ -30,10 +30,10 @@ export function WizardStep2Hospital({ register, errors }: WizardStep2HospitalPro
             placeholder="e.g., Square Hospital, Panthapath"
             {...register("hospitalName")}
             className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-              errors.hospitalName
-                ? "border-red-500 focus:ring-red-500/20"
-                : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-            }`}
+ errors.hospitalName
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
           />
         </div>
         {errors.hospitalName && (
@@ -50,10 +50,10 @@ export function WizardStep2Hospital({ register, errors }: WizardStep2HospitalPro
           placeholder="e.g., 18/F Bir Uttam Qazi Nuruzzaman Sarak, Dhaka 1205"
           {...register("hospitalAddress")}
           className={`w-full rounded-xl border p-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-            errors.hospitalAddress
-              ? "border-red-500 focus:ring-red-500/20"
-              : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-          }`}
+ errors.hospitalAddress
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
         />
         {errors.hospitalAddress && (
           <p className="mt-1 text-red-600 font-medium">{errors.hospitalAddress.message as string}</p>
@@ -92,10 +92,10 @@ export function WizardStep2Hospital({ register, errors }: WizardStep2HospitalPro
               placeholder="e.g., Dhanmondi / Mirpur"
               {...register("city")}
               className={`w-full rounded-xl border pl-9 pr-3 py-2.5 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                errors.city
-                  ? "border-red-500 focus:ring-red-500/20"
-                  : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-              }`}
+ errors.city
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
             />
           </div>
           {errors.city && (

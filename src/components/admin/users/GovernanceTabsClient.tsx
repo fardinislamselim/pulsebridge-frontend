@@ -14,10 +14,10 @@ export function GovernanceTabsClient() {
         <button
           onClick={() => setActiveTab("users")}
           className={`flex items-center gap-2 pb-3.5 px-4 text-sm font-bold border-b-2 transition-all ${
-            activeTab === "users"
-              ? "border-red-600 text-red-600 dark:border-red-500 dark:text-red-400"
-              : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
-          }`}
+ activeTab === "users"
+ ? "border-red-600 text-red-600 dark:border-red-500 dark:text-red-400"
+ : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+ }`}
         >
           <UsersIcon className="h-4 w-4" />
           <span>All Platform Users</span>
@@ -26,10 +26,10 @@ export function GovernanceTabsClient() {
         <button
           onClick={() => setActiveTab("donors")}
           className={`flex items-center gap-2 pb-3.5 px-4 text-sm font-bold border-b-2 transition-all ${
-            activeTab === "donors"
-              ? "border-red-600 text-red-600 dark:border-red-500 dark:text-red-400"
-              : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
-          }`}
+ activeTab === "donors"
+ ? "border-red-600 text-red-600 dark:border-red-500 dark:text-red-400"
+ : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+ }`}
         >
           <HeartHandshakeIcon className="h-4 w-4" />
           <span>Donor Verification & Medical Restrictions</span>

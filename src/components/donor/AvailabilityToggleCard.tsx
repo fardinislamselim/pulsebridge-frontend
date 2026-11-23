@@ -46,7 +46,7 @@ export function AvailabilityToggleCard({
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-5">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-5">
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-400">
@@ -63,12 +63,12 @@ export function AvailabilityToggleCard({
         {/* Status Pill */}
         <span
           className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full border ${
-            isLocked
-              ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800"
-              : isAvailable
-              ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800"
-              : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700"
-          }`}
+ isLocked
+ ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800"
+ : isAvailable
+ ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800"
+ : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700"
+ }`}
         >
           {isAvailable && !isLocked && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />}
           {isLocked ? "Locked" : isAvailable ? "Active on Network" : "Paused"}
@@ -107,17 +107,17 @@ export function AvailabilityToggleCard({
           disabled={isLocked || toggleMutation.isPending}
           onClick={handleToggle}
           className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 ${
-            isLocked
-              ? "opacity-40 cursor-not-allowed bg-slate-300 dark:bg-slate-700"
-              : isAvailable
-              ? "bg-emerald-600"
-              : "bg-slate-200 dark:bg-slate-700"
-          }`}
+ isLocked
+ ? "opacity-40 cursor-not-allowed bg-slate-300 dark:bg-slate-700"
+ : isAvailable
+ ? "bg-emerald-600"
+ : "bg-slate-200 dark:bg-slate-700"
+ }`}
         >
           <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform ${
-              isAvailable ? "translate-x-6" : "translate-x-1"
-            }`}
+            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+ isAvailable ? "translate-x-6" : "translate-x-1"
+ }`}
           />
         </button>
       </div>

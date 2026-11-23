@@ -17,7 +17,7 @@ export default function RootError({ error, reset }: RootErrorProps) {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center px-4 py-16">
-      <div className="mx-auto max-w-lg w-full rounded-3xl border border-red-200/80 bg-white p-8 text-center shadow-xl shadow-red-500/5 dark:border-red-900/40 dark:bg-slate-900 space-y-6">
+      <div className="mx-auto max-w-lg w-full rounded-3xl border border-red-200/80 bg-white p-8 text-center dark:border-red-900/40 dark:bg-slate-900 space-y-6">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-400">
           <ActivityIcon className="h-8 w-8" />
         </div>
@@ -44,7 +44,7 @@ export default function RootError({ error, reset }: RootErrorProps) {
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <button
             onClick={() => reset()}
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white hover:bg-red-700 transition"
           >
             <RotateCcwIcon className="h-3.5 w-3.5" />
             Try Again

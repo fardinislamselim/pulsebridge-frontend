@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -17,11 +17,14 @@ import {
   MapPin,
   Droplet,
   Calendar,
+  Camera,
+  UploadCloud,
 } from "lucide-react";
 import { FormSkeleton } from "@/components/shared/FormSkeleton";
 import { userService } from "@/services/user.service";
 import { useAuthStore } from "@/store/authStore";
 import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
+import { UserAvatar } from "@/components/shared/UserAvatar";
 import type { ApiResponse, User as UserType, BloodGroup } from "@/types";
 
 const BANGLADESH_DISTRICTS = [
@@ -85,6 +88,9 @@ type ProfileFormData = z.infer<typeof profileSchema>;
 export function ProfileUpdateForm() {
   const queryClient = useQueryClient();
   const updateUserStore = useAuthStore((state) => state.updateUser);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
 
   // Fetch Current User Profile
   const { data, isLoading, error } = useQuery({
@@ -94,6 +100,44 @@ export function ProfileUpdateForm() {
       return response.data;
     },
   });
+
+  // Avatar Upload Handler
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Invalid File", { description: "Please select an image file (PNG, JPG, WebP)." });
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File Too Large", { description: "Image size must be less than 2MB." });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result as string;
+      setAvatarPreview(base64);
+      setIsUploadingAvatar(true);
+      try {
+        const res = await userService.updateMe({ avatar: base64, avatarUrl: base64 });
+        updateUserStore({
+          avatar: res.data.avatar || base64,
+          avatarUrl: res.data.avatarUrl || base64,
+        });
+        queryClient.invalidateQueries({ queryKey: ["my-profile"] });
+        toast.success("Profile Photo Updated!", { description: "Your new avatar has been saved." });
+      } catch (err: any) {
+        toast.error("Upload Failed", { description: err?.response?.data?.message || "Could not save avatar." });
+        setAvatarPreview(null);
+      } finally {
+        setIsUploadingAvatar(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const {
     register,
@@ -171,17 +215,57 @@ export function ProfileUpdateForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-      {/* Header with Role & Verification Badges */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900">
+      {/* Header with Interactive Profile Photo Uploader & Verification Badges */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 to-red-700 text-xl font-extrabold text-white shadow-md shadow-red-600/30">
-            {data.name ? data.name[0].toUpperCase() : "U"}
+          {/* Avatar with Camera Overlay Trigger */}
+          <div className="relative group shrink-0">
+            <UserAvatar
+              user={data}
+              src={avatarPreview || data.avatar || data.avatarUrl}
+              name={data.name}
+              size="xl"
+              className="h-16 w-16 border-2 border-red-600/40"
+            />
+            <button
+              type="button"
+              disabled={isUploadingAvatar}
+              onClick={() => fileInputRef.current?.click()}
+              className="absolute inset-0 flex flex-col items-center justify-center rounded-full bg-slate-950/60 text-white opacity-0 group-hover:opacity-100 transition-opacity disabled:cursor-not-allowed"
+              title="Upload Profile Picture"
+            >
+              {isUploadingAvatar ? (
+                <Loader2 className="h-5 w-5 animate-spin text-white" />
+              ) : (
+                <>
+                  <Camera className="h-4 w-4" />
+                  <span className="text-[9px] font-bold mt-0.5">Edit</span>
+                </>
+              )}
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarChange}
+            />
           </div>
+
           <div>
-            <h2 className="font-heading text-xl font-bold text-slate-900 dark:text-white">
-              {data.name}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-heading text-xl font-bold text-slate-900 dark:text-white">
+                {data.name}
+              </h2>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 inline-flex items-center gap-1"
+              >
+                Change photo
+              </button>
+            </div>
             <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
               <span className="rounded-md bg-slate-100 px-2 py-0.5 font-bold uppercase text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                 {data.role}
@@ -228,10 +312,10 @@ export function ProfileUpdateForm() {
                 disabled={updateMutation.isPending}
                 {...register("name")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.name
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.name
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
             </div>
             {errors.name && (
@@ -261,10 +345,10 @@ export function ProfileUpdateForm() {
                 disabled={updateMutation.isPending}
                 {...register("phone")}
                 className={`w-full rounded-lg border bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-900 dark:text-white transition ${
-                  errors.phone
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.phone
+ ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
             </div>
             {errors.phone && (
@@ -372,7 +456,7 @@ export function ProfileUpdateForm() {
           <button
             type="submit"
             disabled={updateMutation.isPending || !isDirty}
-            className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {updateMutation.isPending ? (
               <>

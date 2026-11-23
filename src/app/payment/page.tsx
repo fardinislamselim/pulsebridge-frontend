@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 export default function PaymentPage() {
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-12 dark:bg-slate-950">
-      <div className="mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-xl dark:border-slate-800 dark:bg-slate-900">
+      <div className="mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white shadow-lg shadow-red-600/30">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white ">
             <CreditCard className="h-6 w-6" />
           </div>
           <h1 className="mt-4 font-heading text-2xl font-bold text-slate-900 dark:text-white">

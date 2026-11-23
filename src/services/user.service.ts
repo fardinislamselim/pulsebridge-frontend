@@ -4,7 +4,12 @@ import type { ApiResponse, User } from "@/types";
 export interface UpdateUserPayload {
   name?: string;
   phone?: string;
-  avatarUrl?: string;
+  avatar?: string | null;
+  avatarUrl?: string | null;
+  bloodGroup?: string;
+  district?: string;
+  city?: string;
+  address?: string;
 }
 
 export const userService = {

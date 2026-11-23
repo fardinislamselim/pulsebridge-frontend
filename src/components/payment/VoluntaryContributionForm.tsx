@@ -50,7 +50,7 @@ export function VoluntaryContributionForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-6">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-400">
           <HeartHandshakeIcon className="h-5 w-5" />
@@ -76,8 +76,8 @@ export function VoluntaryContributionForm() {
               type="button"
               onClick={() => handleGatewayChange("SSLCOMMERZ")}
               className={`p-2.5 rounded-xl border text-left transition-all ${
-                selectedGateway === "SSLCOMMERZ" ? "border-red-600 bg-red-50/40 dark:border-red-500 dark:bg-red-950/30 ring-2 ring-red-600/20" : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
-              }`}
+ selectedGateway === "SSLCOMMERZ" ? "border-red-600 bg-red-50/40 dark:border-red-500 dark:bg-red-950/30 ring-2 ring-red-600/20" : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
+ }`}
             >
               <div className="font-bold text-slate-900 dark:text-white">SSLCommerz</div>
               <div className="text-[11px] text-slate-500">bKash, Nagad • BDT</div>
@@ -86,8 +86,8 @@ export function VoluntaryContributionForm() {
               type="button"
               onClick={() => handleGatewayChange("STRIPE")}
               className={`p-2.5 rounded-xl border text-left transition-all ${
-                selectedGateway === "STRIPE" ? "border-red-600 bg-red-50/40 dark:border-red-500 dark:bg-red-950/30 ring-2 ring-red-600/20" : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
-              }`}
+ selectedGateway === "STRIPE" ? "border-red-600 bg-red-50/40 dark:border-red-500 dark:bg-red-950/30 ring-2 ring-red-600/20" : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
+ }`}
             >
               <div className="font-bold text-slate-900 dark:text-white">Stripe</div>
               <div className="text-[11px] text-slate-500">Global Cards • USD</div>
@@ -104,8 +104,8 @@ export function VoluntaryContributionForm() {
                 type="button"
                 onClick={() => setValue("amount", val, { shouldValidate: true })}
                 className={`py-2 rounded-xl text-xs font-bold transition-all ${
-                  amountValue === val ? "bg-red-600 text-white shadow-sm" : "bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                }`}
+ amountValue === val ? "bg-red-600 text-white " : "bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+ }`}
               >
                 {currentCurrency === "BDT" ? `৳${val}` : `$${val}`}
               </button>
@@ -137,7 +137,7 @@ export function VoluntaryContributionForm() {
         <button
           type="submit"
           disabled={initiateMutation.isPending}
-          className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-sm font-bold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition disabled:opacity-50"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-sm font-bold text-white hover:bg-red-700 transition disabled:opacity-50"
         >
           {initiateMutation.isPending ? (
             <>

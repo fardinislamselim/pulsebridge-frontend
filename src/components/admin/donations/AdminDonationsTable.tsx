@@ -51,7 +51,7 @@ export function AdminDonationsTable() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 space-y-4">
       {/* Status Filter Tabs */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-1.5 overflow-x-auto text-xs">
@@ -61,10 +61,10 @@ export function AdminDonationsTable() {
               type="button"
               onClick={() => setStatusFilter(st)}
               className={`px-3 py-1 rounded-lg font-bold transition whitespace-nowrap ${
-                statusFilter === st
-                  ? "bg-red-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
+ statusFilter === st
+ ? "bg-red-600 text-white"
+ : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
+ }`}
             >
               {st}
             </button>

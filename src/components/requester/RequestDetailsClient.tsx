@@ -96,12 +96,12 @@ export function RequestDetailsClient({ requestId }: RequestDetailsClientProps) {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <button type="button" onClick={handleShare} className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition">
+          <button type="button" onClick={handleShare} className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition">
             <Share2 className="h-3.5 w-3.5" /> Share
           </button>
           {!isTerminalState && (
             <>
-              <button type="button" onClick={() => setIsEditModalOpen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition">
+              <button type="button" onClick={() => setIsEditModalOpen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition">
                 <Edit3 className="h-3.5 w-3.5" /> Edit Details
               </button>
               <button type="button" onClick={() => setIsCancelModalOpen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-red-200 bg-red-50/50 px-3.5 py-2 text-xs font-semibold text-red-600 hover:bg-red-100/60 dark:border-red-900/40 dark:bg-red-950/20 dark:text-red-400 transition">
@@ -109,7 +109,7 @@ export function RequestDetailsClient({ requestId }: RequestDetailsClientProps) {
               </button>
             </>
           )}
-          <Link href={`/requester/donations/log?requestId=${bloodRequest.id}`} className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition">
+          <Link href={`/requester/donations/log?requestId=${bloodRequest.id}`} className="inline-flex items-center gap-1.5 rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700 transition">
             <HeartHandshake className="h-4 w-4" /> Record Donation
           </Link>
         </div>

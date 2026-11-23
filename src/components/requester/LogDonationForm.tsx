@@ -230,7 +230,7 @@ export function LogDonationForm() {
       </div>
 
       {/* Main Logging Form Card */}
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900">
         <form
           onSubmit={handleSubmit((data) => {
             const isoDonationDate = data.donationDate
@@ -279,10 +279,10 @@ export function LogDonationForm() {
                         value={field.value || ""}
                         onChange={(e) => field.onChange(e.target.value)}
                         className={`w-full rounded-xl border p-3 text-slate-900 bg-slate-50/50 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-medium ${
-                          errors.bloodRequestId
-                            ? "border-red-500 focus:ring-red-500/20"
-                            : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                        }`}
+ errors.bloodRequestId
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                       >
                         <option value="">-- Choose Target Blood Request --</option>
                         {availableRequests.map((req) => (
@@ -331,10 +331,10 @@ export function LogDonationForm() {
                     placeholder="Enter Donor Profile ID (UUID) or User ID"
                     {...register("donorProfileId")}
                     className={`w-full rounded-xl border p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-mono ${
-                      errors.donorProfileId
-                        ? "border-red-500 focus:ring-red-500/20"
-                        : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                    }`}
+ errors.donorProfileId
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                   />
                   <p className="mt-1 text-slate-500 text-[11px]">
                     The donor can copy their ID directly from their profile card or Donor Hub.
@@ -356,10 +356,10 @@ export function LogDonationForm() {
                         value={field.value || ""}
                         onChange={(e) => field.onChange(e.target.value)}
                         className={`w-full rounded-xl border p-3 text-slate-900 bg-slate-50/50 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-medium ${
-                          errors.donorProfileId
-                            ? "border-red-500 focus:ring-red-500/20"
-                            : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                        }`}
+ errors.donorProfileId
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
                       >
                         <option value="">-- Choose Registered Donor --</option>
                         {availableDonors.map((donor) => {
@@ -396,10 +396,10 @@ export function LogDonationForm() {
                 max={10}
                 {...register("unitsDonated")}
                 className={`w-full rounded-xl border p-3 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                  errors.unitsDonated
-                    ? "border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.unitsDonated
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
               {errors.unitsDonated && (
                 <p className="mt-1 text-red-600 font-medium">
@@ -418,10 +418,10 @@ export function LogDonationForm() {
                 type="datetime-local"
                 {...register("donationDate")}
                 className={`w-full rounded-xl border p-3 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                  errors.donationDate
-                    ? "border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.donationDate
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
               {errors.donationDate && (
                 <p className="mt-1 text-red-600 font-medium">
@@ -441,10 +441,10 @@ export function LogDonationForm() {
                 placeholder="e.g., Dhaka Medical College Hospital"
                 {...register("hospitalName")}
                 className={`w-full rounded-xl border p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                  errors.hospitalName
-                    ? "border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
+ errors.hospitalName
+ ? "border-red-500 focus:ring-red-500/20"
+ : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+ }`}
               />
               {errors.hospitalName && (
                 <p className="mt-1 text-red-600 font-medium">
@@ -491,7 +491,7 @@ export function LogDonationForm() {
             <button
               type="submit"
               disabled={logDonationMutation.isPending}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70 transition"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70 transition"
             >
               {logDonationMutation.isPending ? (
                 <>

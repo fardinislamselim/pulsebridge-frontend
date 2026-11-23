@@ -75,7 +75,7 @@ export function MobileNavSheet() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
-        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm md:hidden dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 md:hidden dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
         aria-label="Open Navigation Menu"
       >
         <Menu className="h-5 w-5" />
@@ -125,7 +125,7 @@ export function MobileNavSheet() {
               <Link
                 href={getDashboardPath()}
                 onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 py-2.5 text-xs font-semibold text-white shadow-md shadow-red-600/30"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 py-2.5 text-xs font-semibold text-white "
               >
                 <LayoutDashboard className="h-4 w-4" />
                 Go to Dashboard
@@ -145,7 +145,7 @@ export function MobileNavSheet() {
               <Link
                 href="/login"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white py-2.5 text-xs font-semibold text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white py-2.5 text-xs font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
               >
                 <LogIn className="h-3.5 w-3.5" />
                 Sign In
@@ -153,7 +153,7 @@ export function MobileNavSheet() {
               <Link
                 href="/register?role=DONOR"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-1.5 rounded-lg bg-red-600 py-2.5 text-xs font-semibold text-white shadow-sm shadow-red-600/30"
+                className="flex items-center justify-center gap-1.5 rounded-lg bg-red-600 py-2.5 text-xs font-semibold text-white "
               >
                 <UserPlus className="h-3.5 w-3.5" />
                 Join

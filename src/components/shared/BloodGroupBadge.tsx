@@ -57,7 +57,7 @@ export function BloodGroupBadge({
 
   const variantStyles = {
     solid:
-      "bg-red-600 text-white shadow-sm shadow-red-600/30 border border-red-700",
+      "bg-red-600 text-white border border-red-700",
     subtle:
       "bg-red-50 text-red-700 border border-red-200 dark:bg-red-950/60 dark:text-red-300 dark:border-red-900",
     outline:
@@ -67,11 +67,11 @@ export function BloodGroupBadge({
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center rounded-lg font-mono tracking-tight select-none",
-        sizeStyles,
-        variantStyles,
-        className
-      )}
+ "inline-flex shrink-0 items-center rounded-lg font-mono tracking-tight select-none",
+ sizeStyles,
+ variantStyles,
+ className
+ )}
       title={`Blood Group: ${formatted}${isNegative ? " (Rh-Negative)" : " (Rh-Positive)"}`}
     >
       <span className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-80" />

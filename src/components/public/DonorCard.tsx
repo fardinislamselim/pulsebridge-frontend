@@ -34,7 +34,7 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
       : `/requester/donations/log?donorProfileId=${donorId}`);
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 transition flex flex-col justify-between space-y-4">
       <div>
         <div className="flex items-start justify-between">
           <div>
@@ -71,10 +71,10 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
 
           <span
             className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold border ${
-              donor.isAvailable && !isCooldownActive
-                ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800"
-                : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700"
-            }`}
+ donor.isAvailable && !isCooldownActive
+ ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800"
+ : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700"
+ }`}
           >
             {isCooldownActive ? (
               <>
@@ -97,7 +97,7 @@ export function DonorCard({ donor, requestId, actionHref }: DonorCardProps) {
         <span className="text-[11px] text-slate-400">ABO Verified</span>
         <Link
           href={logDonationUrl}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-red-600/20 hover:bg-red-700 transition"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition"
         >
           <HeartHandshake className="h-3.5 w-3.5" />
           Log Donation

@@ -27,7 +27,7 @@ export function CompatibilityMatrixTable({
   onSelectGroup,
 }: CompatibilityMatrixTableProps) {
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
         <div>
           <h3 className="font-heading text-base font-bold text-slate-900 dark:text-white">
@@ -65,10 +65,10 @@ export function CompatibilityMatrixTable({
                 <th
                   key={recipient}
                   className={`p-2.5 text-xs font-bold tracking-tight ${
-                    highlightGroup === recipient
-                      ? "text-red-600 dark:text-red-400 bg-red-50/70 dark:bg-red-950/30 rounded-t-lg"
-                      : "text-slate-700 dark:text-slate-300"
-                  }`}
+ highlightGroup === recipient
+ ? "text-red-600 dark:text-red-400 bg-red-50/70 dark:bg-red-950/30 rounded-t-lg"
+ : "text-slate-700 dark:text-slate-300"
+ }`}
                 >
                   {formatBloodGroup(recipient)}
                 </th>
@@ -82,20 +82,20 @@ export function CompatibilityMatrixTable({
                 <tr
                   key={donor}
                   className={`transition-colors ${
-                    isDonorRowHighlighted
-                      ? "bg-red-50/40 dark:bg-red-950/20"
-                      : "hover:bg-slate-50/70 dark:hover:bg-slate-800/40"
-                  }`}
+ isDonorRowHighlighted
+ ? "bg-red-50/40 dark:bg-red-950/20"
+ : "hover:bg-slate-50/70 dark:hover:bg-slate-800/40"
+ }`}
                 >
                   <td className="p-2.5 text-left">
                     <button
                       type="button"
                       onClick={() => onSelectGroup?.(donor)}
                       className={`text-xs font-bold px-2 py-1 rounded-md transition-colors ${
-                        isDonorRowHighlighted
-                          ? "bg-red-600 text-white"
-                          : "text-slate-800 hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-700"
-                      }`}
+ isDonorRowHighlighted
+ ? "bg-red-600 text-white"
+ : "text-slate-800 hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-700"
+ }`}
                     >
                       {formatBloodGroup(donor)}
                     </button>

@@ -25,7 +25,7 @@ export function CompatibilityExplorer() {
   return (
     <div className="space-y-10 pb-16">
       {/* Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-600 via-rose-600 to-red-800 p-8 sm:p-10 text-white shadow-xl shadow-red-500/10">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-600 via-rose-600 to-red-800 p-8 sm:p-10 text-white ">
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur-md">
             <Activity className="h-3.5 w-3.5" />
@@ -43,7 +43,7 @@ export function CompatibilityExplorer() {
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
               href="/donors"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-red-700 shadow-sm hover:bg-red-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-red-700 hover:bg-red-50 transition-colors"
             >
               <Search className="h-3.5 w-3.5" />
               Find Compatible Donors
@@ -118,7 +118,7 @@ export function CompatibilityExplorer() {
       </section>
 
       {/* Section 4: Clinical Guidance & Educational FAQ */}
-      <section className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-5">
+      <section className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-5">
         <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
           <BookOpen className="h-5 w-5 text-red-600" />
           <h3 className="font-heading text-base font-bold text-slate-900 dark:text-white">

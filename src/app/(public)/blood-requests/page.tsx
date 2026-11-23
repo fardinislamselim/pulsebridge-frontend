@@ -70,7 +70,7 @@ export default async function BloodRequestsPage({ searchParams }: BloodRequestsP
 
         <Link
           href="/requester/requests/new"
-          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-md shadow-red-600/30 hover:bg-red-700 transition"
+          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white hover:bg-red-700 transition"
         >
           <PlusCircle className="h-4 w-4" />
           Request Blood

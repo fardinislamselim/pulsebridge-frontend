@@ -23,9 +23,9 @@ export function FormSkeleton({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6",
-        className
-      )}
+ "rounded-2xl border border-slate-200/80 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-6",
+ className
+ )}
     >
       <div className={cn("grid gap-5", gridClass)}>
         {Array.from({ length: fields }).map((_, i) => (

@@ -40,7 +40,7 @@ export function RequestsUrgencyPieChart({ period = "30d" }: RequestsUrgencyPieCh
   const chartData = urgencyData.length > 0 ? urgencyData : DEFAULT_URGENCY;
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 space-y-4">
       <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">

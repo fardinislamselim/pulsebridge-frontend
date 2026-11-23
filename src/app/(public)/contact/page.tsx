@@ -56,7 +56,7 @@ export default function ContactPage() {
           </div>
 
           {/* Standard Contact Info Cards */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-5 text-xs">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-5 text-xs">
             <div className="flex items-start gap-3">
               <Phone className="h-4 w-4 text-slate-400 mt-0.5 shrink-0" />
               <div>

@@ -43,10 +43,10 @@ export function AdminDashboardClient() {
               type="button"
               onClick={() => setPeriod(p)}
               className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
-                period === p
-                  ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-white"
-                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
-              }`}
+ period === p
+ ? "bg-white text-slate-900 dark:bg-slate-800 dark:text-white"
+ : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
+ }`}
             >
               {p.toUpperCase()}
             </button>

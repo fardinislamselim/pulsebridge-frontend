@@ -103,6 +103,7 @@ export interface User {
   role: UserRole;
   status: UserStatus;
   emailVerified: boolean;
+  avatar?: string | null;
   avatarUrl?: string | null;
   createdAt: string;
   updatedAt: string;

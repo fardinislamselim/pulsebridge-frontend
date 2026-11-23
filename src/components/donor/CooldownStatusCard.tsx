@@ -46,7 +46,7 @@ export function CooldownStatusCard({
   const progressPercent = isEligible ? 100 : Math.min(100, Math.round((elapsedDays / totalDays) * 100));
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-5">
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 space-y-5">
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
@@ -62,10 +62,10 @@ export function CooldownStatusCard({
 
         <span
           className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
-            isEligible
-              ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800"
-              : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800"
-          }`}
+ isEligible
+ ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800"
+ : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800"
+ }`}
         >
           {isEligible ? "Safe to Donate" : `${remainingDays} Days Left`}
         </span>
@@ -80,8 +80,8 @@ export function CooldownStatusCard({
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
           <div
             className={`h-full rounded-full transition-all duration-500 ${
-              isEligible ? "bg-emerald-500" : "bg-gradient-to-r from-amber-500 to-amber-600"
-            }`}
+ isEligible ? "bg-emerald-500" : "bg-gradient-to-r from-amber-500 to-amber-600"
+ }`}
             style={{ width: `${progressPercent}%` }}
           />
         </div>

@@ -23,7 +23,7 @@ export default function NotFound() {
           <Logo size="lg" />
         </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xl dark:border-slate-800 dark:bg-slate-900 space-y-6">
+        <div className="rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
           <div className="space-y-2">
             <span className="text-6xl font-black text-red-600 tracking-tight">404</span>
             <h1 className="text-2xl font-black text-slate-900 dark:text-white">Page Not Found</h1>
@@ -58,7 +58,7 @@ export default function NotFound() {
 
           <Link
             href="/"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-bold text-white hover:bg-red-700 transition"
           >
             <SearchIcon className="h-3.5 w-3.5" />
             Return to PulseBridge Overview
