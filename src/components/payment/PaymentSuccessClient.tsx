@@ -11,16 +11,22 @@ import { CheckCircle2Icon, AlertTriangleIcon, ShieldCheckIcon, ArrowRightIcon, R
 
 export function PaymentSuccessClient() {
   const searchParams = useSearchParams();
-  const paymentId = searchParams.get("paymentId") || searchParams.get("id") || searchParams.get("tran_id") || searchParams.get("transactionId") || searchParams.get("session_id") || "";
+  const identifier =
+    searchParams.get("paymentId") ||
+    searchParams.get("transactionId") ||
+    searchParams.get("tran_id") ||
+    searchParams.get("id") ||
+    searchParams.get("session_id") ||
+    "";
 
   const { data: verificationData, isLoading, isError, refetch } = useQuery({
-    queryKey: ["payment-verification", paymentId],
+    queryKey: ["payment-verification", identifier],
     queryFn: async () => {
-      if (!paymentId) throw new Error("No payment reference found");
-      return (await paymentService.verifyPaymentById(paymentId)).data;
+      if (!identifier) throw new Error("No payment reference found");
+      return (await paymentService.verifyPaymentById(identifier)).data;
     },
-    enabled: Boolean(paymentId),
-    retry: 1,
+    enabled: Boolean(identifier),
+    retry: 2,
   });
 
   if (isLoading) {
@@ -41,7 +47,7 @@ export function PaymentSuccessClient() {
     );
   }
 
-  if (isError || !paymentId) {
+  if (isError || !identifier) {
     return (
       <div className="mx-auto max-w-lg rounded-3xl border border-amber-200 bg-white p-8 text-center dark:border-amber-900/40 dark:bg-slate-900 space-y-5">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400">
@@ -50,16 +56,24 @@ export function PaymentSuccessClient() {
         <div>
           <h2 className="text-xl font-black text-slate-900 dark:text-white">Verification Pending</h2>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            {paymentId ? "Could not verify automatically. If charged, gateway will reconcile shortly." : "No payment ID in return URL."}
+            {identifier
+              ? "Could not verify automatically. If charged, gateway will reconcile shortly."
+              : "No payment reference found in return URL."}
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          {paymentId && (
-            <button onClick={() => refetch()} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 transition">
+          {identifier && (
+            <button
+              onClick={() => refetch()}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 transition"
+            >
               <RotateCcwIcon className="h-3.5 w-3.5" /> Re-check Status
             </button>
           )}
-          <Link href="/dashboard/support-us" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 transition">
+          <Link
+            href="/dashboard/support-us"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 transition"
+          >
             Platform Support
           </Link>
         </div>
@@ -70,7 +84,7 @@ export function PaymentSuccessClient() {
   const result = verificationData!;
   const amount = result.amount ?? 0;
   const currency = result.currency ?? "BDT";
-  const transactionId = result.transactionId || result.paymentId || paymentId;
+  const transactionId = result.transactionId || result.paymentId || identifier;
 
   return (
     <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 space-y-6">
