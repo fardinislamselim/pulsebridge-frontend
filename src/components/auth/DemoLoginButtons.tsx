@@ -49,7 +49,7 @@ const DEMO_ACCOUNTS: DemoAccountConfig[] = [
     label: "PulseBridge Admin",
     roleBadge: "System Admin",
     email: "admin@pulsebridge.com",
-    password: process.env.NEXT_PUBLIC_DEMO_ADMIN_PASSWORD || "AdminPassword123!",
+    password: "AdminPassword123!",
     redirectUrl: "/admin",
     icon: ShieldAlertIcon,
     borderClass: "hover:border-purple-500 hover:bg-purple-50/40 dark:hover:border-purple-900/60 dark:hover:bg-purple-950/20",

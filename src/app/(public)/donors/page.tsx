@@ -31,6 +31,7 @@ export default async function DonorsPage({ searchParams }: DonorsPageProps) {
   const bloodGroup = typeof params.bloodGroup === "string" ? (params.bloodGroup as BloodGroup) : undefined;
   const district = typeof params.district === "string" ? params.district : undefined;
   const isAvailable = params.isAvailable === "true" ? true : undefined;
+  const isVerified = params.isVerified === "true" ? true : undefined;
 
   const latStr = typeof params.latitude === "string" ? params.latitude : undefined;
   const lngStr = typeof params.longitude === "string" ? params.longitude : undefined;
@@ -50,7 +51,7 @@ export default async function DonorsPage({ searchParams }: DonorsPageProps) {
       total = res.meta?.total ?? donors.length;
       totalPages = res.meta?.totalPages ?? Math.max(1, Math.ceil(total / limit));
     } else {
-      const res = await publicService.getPublicDonors({ page, limit, bloodGroup, district, isAvailable });
+      const res = await publicService.getPublicDonors({ page, limit, bloodGroup, district, isAvailable, isVerified });
       donors = res.data || [];
       total = res.meta?.total ?? donors.length;
       totalPages = res.meta?.totalPages ?? Math.max(1, Math.ceil(total / limit));

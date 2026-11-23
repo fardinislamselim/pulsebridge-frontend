@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {
@@ -11,30 +11,33 @@ import {
   ArrowLeft,
   Building2,
   Calendar,
-  FileText,
   User,
   ShieldAlert,
   Loader2,
-  CheckCircle2,
-  Info,
   Droplet,
   ArrowRight,
+  Edit3,
+  ListFilter,
+  CheckCircle2,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 import { useCreateDonation } from "@/hooks/useDonations";
-import { useBloodRequestDetails } from "@/hooks/useBloodRequests";
-import { BloodGroupBadge } from "@/components/shared/BloodGroupBadge";
-import type { BloodRequest } from "@/types";
+import { useMyBloodRequests, useBloodRequestDetails } from "@/hooks/useBloodRequests";
+import { publicService } from "@/services/public.service";
+import { BloodGroupBadge, formatBloodGroup } from "@/components/shared/BloodGroupBadge";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { BloodRequest, PublicDonor } from "@/types";
 
 const logDonationSchema = z.object({
   bloodRequestId: z
     .string()
     .trim()
-    .min(1, "Blood request ID is required"),
+    .min(1, "Please select or specify a blood request"),
   donorProfileId: z
     .string()
     .trim()
-    .min(1, "Donor profile ID or User ID is required"),
+    .min(1, "Please select a donor or enter donor ID"),
   unitsDonated: z.coerce
     .number()
     .int("Units must be a whole number")
@@ -62,6 +65,9 @@ export function LogDonationForm() {
   const queryRequestId = searchParams.get("requestId") || searchParams.get("bloodRequestId") || "";
   const queryDonorId = searchParams.get("donorProfileId") || searchParams.get("donorId") || "";
 
+  // Manual donor ID toggle state
+  const [manualDonorInput, setManualDonorInput] = useState<boolean>(false);
+
   // Current local ISO string for datetime-local
   const getDefaultDatetime = () => {
     const now = new Date();
@@ -74,6 +80,7 @@ export function LogDonationForm() {
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors },
   } = useForm<LogDonationFormData>({
     resolver: zodResolver(logDonationSchema),
@@ -89,11 +96,41 @@ export function LogDonationForm() {
   });
 
   const selectedRequestId = watch("bloodRequestId");
+  const selectedDonorId = watch("donorProfileId");
 
-  // Fetch Blood Request details if ID is present
+  // 1. Fetch requester's own requests (active/pending/approved/matching)
+  const { data: myRequestsData, isLoading: isLoadingMyRequests } = useMyBloodRequests({ limit: 50 });
+  const myRequests: BloodRequest[] = myRequestsData || [];
+
+  // Fallback to public approved requests if requester has no personal requests loaded
+  const { data: publicRequestsData, isLoading: isLoadingPublicRequests } = useQuery({
+    queryKey: ["public-requests-for-log"],
+    queryFn: async () => {
+      const res = await publicService.getPublicBloodRequests({ limit: 50 });
+      return res.data || [];
+    },
+    enabled: myRequests.length === 0 && !isLoadingMyRequests,
+    staleTime: 60 * 1000,
+  });
+
+  const availableRequests: BloodRequest[] = myRequests.length > 0 ? myRequests : publicRequestsData || [];
+  const isLoadingRequests = isLoadingMyRequests || (myRequests.length === 0 && isLoadingPublicRequests);
+
+  // 2. Fetch available donors directory for user-friendly donor selector
+  const { data: donorsData, isLoading: isLoadingDonors } = useQuery({
+    queryKey: ["available-donors-for-log"],
+    queryFn: async () => {
+      const res = await publicService.getPublicDonors({ limit: 50 });
+      return res.data || [];
+    },
+    staleTime: 60 * 1000,
+  });
+  const availableDonors: PublicDonor[] = donorsData || [];
+
+  // 3. Fetch detailed request if an ID is active (to preview case & pre-fill hospital)
   const { data: bloodRequest } = useBloodRequestDetails(selectedRequestId);
 
-  // Pre-fill hospital name and address when blood request data loads
+  // Pre-fill hospital name & address when blood request changes
   useEffect(() => {
     if (bloodRequest) {
       if (bloodRequest.hospitalName) {
@@ -102,8 +139,24 @@ export function LogDonationForm() {
       if (bloodRequest.hospitalAddress) {
         setValue("hospitalAddress", bloodRequest.hospitalAddress);
       }
+    } else if (selectedRequestId) {
+      const matched = availableRequests.find((r) => r.id === selectedRequestId);
+      if (matched) {
+        if (matched.hospitalName) setValue("hospitalName", matched.hospitalName);
+        if (matched.hospitalAddress) setValue("hospitalAddress", matched.hospitalAddress);
+      }
     }
-  }, [bloodRequest, setValue]);
+  }, [bloodRequest, selectedRequestId, availableRequests, setValue]);
+
+  // If query donor ID was passed, switch to manual mode if not found in list
+  useEffect(() => {
+    if (queryDonorId && availableDonors.length > 0) {
+      const exists = availableDonors.some((d) => d.id === queryDonorId);
+      if (!exists) {
+        setManualDonorInput(true);
+      }
+    }
+  }, [queryDonorId, availableDonors]);
 
   // Mutation: POST /donations
   const logDonationMutation = useCreateDonation();
@@ -188,56 +241,146 @@ export function LogDonationForm() {
           className="space-y-6 text-xs"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {/* Blood Request ID */}
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
-                Blood Request ID *
+            {/* Blood Request Selector */}
+            <div className="sm:col-span-1">
+              <label htmlFor="blood-request-select" className="font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between mb-1">
+                <span className="flex items-center gap-1.5">
+                  <Droplet className="h-3.5 w-3.5 text-red-600" />
+                  Select Blood Request *
+                </span>
+                {queryRequestId && (
+                  <span className="text-[10px] text-emerald-600 font-medium">Pre-filled from URL</span>
+                )}
               </label>
-              <input
-                type="text"
-                placeholder="e.g., req_cm3..."
-                {...register("bloodRequestId")}
-                className={`w-full rounded-xl border p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                  errors.bloodRequestId
-                    ? "border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
-              />
-              {errors.bloodRequestId && (
-                <p className="mt-1 text-red-600 font-medium">
-                  {errors.bloodRequestId.message}
-                </p>
+
+              {isLoadingRequests ? (
+                <div className="space-y-1.5">
+                  <Skeleton className="h-11 w-full rounded-xl" />
+                  <Skeleton className="h-3 w-40" />
+                </div>
+              ) : (
+                <div>
+                  <Controller
+                    name="bloodRequestId"
+                    control={control}
+                    render={({ field }) => (
+                      <select
+                        id="blood-request-select"
+                        value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        className={`w-full rounded-xl border p-3 text-slate-900 bg-slate-50/50 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-medium ${
+                          errors.bloodRequestId
+                            ? "border-red-500 focus:ring-red-500/20"
+                            : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+                        }`}
+                      >
+                        <option value="">-- Choose Target Blood Request --</option>
+                        {availableRequests.map((req) => (
+                          <option key={req.id} value={req.id}>
+                            {req.patientName} — {formatBloodGroup(req.bloodGroup)} ({req.hospitalName || req.district})
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  />
+                  {errors.bloodRequestId && (
+                    <p className="mt-1 text-red-600 font-medium">
+                      {errors.bloodRequestId.message}
+                    </p>
+                  )}
+                  {availableRequests.length === 0 && (
+                    <p className="mt-1 text-slate-500 text-[11px]">
+                      No active requests found. You can also specify an approved request.
+                    </p>
+                  )}
+                </div>
               )}
             </div>
 
-            {/* Donor Profile ID */}
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
-                Donor Profile ID / User ID *
-              </label>
-              <input
-                type="text"
-                placeholder="e.g., dnr_cm3... or donor user ID"
-                {...register("donorProfileId")}
-                className={`w-full rounded-xl border p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
-                  errors.donorProfileId
-                    ? "border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
-                }`}
-              />
-              {errors.donorProfileId && (
-                <p className="mt-1 text-red-600 font-medium">
-                  {errors.donorProfileId.message}
-                </p>
+            {/* Donor Selector with Manual ID Fallback */}
+            <div className="sm:col-span-1">
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="donor-profile-select" className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5 text-red-600" />
+                  Select Blood Donor *
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setManualDonorInput(!manualDonorInput)}
+                  className="text-[11px] font-semibold text-red-600 hover:text-red-700 dark:text-red-400 inline-flex items-center gap-1"
+                >
+                  <Edit3 className="h-3 w-3" />
+                  {manualDonorInput ? "Select from directory" : "Enter Donor ID manually"}
+                </button>
+              </div>
+
+              {manualDonorInput ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Enter Donor Profile ID (UUID) or User ID"
+                    {...register("donorProfileId")}
+                    className={`w-full rounded-xl border p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-mono ${
+                      errors.donorProfileId
+                        ? "border-red-500 focus:ring-red-500/20"
+                        : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+                    }`}
+                  />
+                  <p className="mt-1 text-slate-500 text-[11px]">
+                    The donor can copy their ID directly from their profile card or Donor Hub.
+                  </p>
+                </div>
+              ) : isLoadingDonors ? (
+                <div className="space-y-1.5">
+                  <Skeleton className="h-11 w-full rounded-xl" />
+                  <Skeleton className="h-3 w-40" />
+                </div>
+              ) : (
+                <div>
+                  <Controller
+                    name="donorProfileId"
+                    control={control}
+                    render={({ field }) => (
+                      <select
+                        id="donor-profile-select"
+                        value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        className={`w-full rounded-xl border p-3 text-slate-900 bg-slate-50/50 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition font-medium ${
+                          errors.donorProfileId
+                            ? "border-red-500 focus:ring-red-500/20"
+                            : "border-slate-300 focus:border-red-600 focus:ring-red-600/20 dark:border-slate-700"
+                        }`}
+                      >
+                        <option value="">-- Choose Registered Donor --</option>
+                        {availableDonors.map((donor) => {
+                          const name = donor.user?.name || "Anonymous Donor";
+                          const bg = donor.bloodGroup ? formatBloodGroup(donor.bloodGroup) : "Unknown";
+                          const location = donor.city ? `${donor.city}, ${donor.district}` : donor.district || "Bangladesh";
+                          return (
+                            <option key={donor.id} value={donor.id}>
+                              {name} — {bg} ({location}){donor.isVerified ? " ✓ Verified" : ""}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
+                  />
+                  {errors.donorProfileId && (
+                    <p className="mt-1 text-red-600 font-medium">
+                      {errors.donorProfileId.message}
+                    </p>
+                  )}
+                </div>
               )}
             </div>
 
             {/* Units Donated */}
             <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              <label htmlFor="units-donated" className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                 Units of Blood Donated *
               </label>
               <input
+                id="units-donated"
                 type="number"
                 min={1}
                 max={10}
@@ -257,10 +400,11 @@ export function LogDonationForm() {
 
             {/* Donation Date */}
             <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              <label htmlFor="donation-date" className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                 Donation Date & Time *
               </label>
               <input
+                id="donation-date"
                 type="datetime-local"
                 {...register("donationDate")}
                 className={`w-full rounded-xl border p-3 text-slate-900 focus:outline-none focus:ring-2 dark:bg-slate-950 dark:text-white transition ${
@@ -278,10 +422,11 @@ export function LogDonationForm() {
 
             {/* Hospital Name */}
             <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              <label htmlFor="hospital-name" className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                 Hospital / Transfusion Center Name *
               </label>
               <input
+                id="hospital-name"
                 type="text"
                 placeholder="e.g., Dhaka Medical College Hospital"
                 {...register("hospitalName")}
@@ -300,10 +445,11 @@ export function LogDonationForm() {
 
             {/* Hospital Address */}
             <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              <label htmlFor="hospital-address" className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                 Hospital Address (Optional)
               </label>
               <input
+                id="hospital-address"
                 type="text"
                 placeholder="e.g., Blood Transfusion Unit, Ward 3B"
                 {...register("hospitalAddress")}
@@ -314,10 +460,11 @@ export function LogDonationForm() {
 
           {/* Notes / Blood Bag Barcode */}
           <div>
-            <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="donation-notes" className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Donation Notes & Verification Reference (Optional)
             </label>
             <textarea
+              id="donation-notes"
               rows={3}
               placeholder="e.g., Blood bag barcode #B-89211, donor card receipt presented, doctor in charge Dr. Rahman."
               {...register("notes")}

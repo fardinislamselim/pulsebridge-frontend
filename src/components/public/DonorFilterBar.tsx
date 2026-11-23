@@ -22,8 +22,9 @@ export function DonorFilterBar() {
   const currentBloodGroup = searchParams.get("bloodGroup") || "";
   const currentDistrict = searchParams.get("district") || "";
   const currentAvailable = searchParams.get("isAvailable") || "";
+  const currentVerified = searchParams.get("isVerified") || "";
   const hasCoordinates = Boolean(searchParams.get("latitude") && searchParams.get("longitude"));
-  const hasActiveFilters = Boolean(currentBloodGroup || currentDistrict || currentAvailable || hasCoordinates);
+  const hasActiveFilters = Boolean(currentBloodGroup || currentDistrict || currentAvailable || currentVerified || hasCoordinates);
 
   const updateParam = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -86,7 +87,7 @@ export function DonorFilterBar() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
         <div>
           <label htmlFor="donor-bg" className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Blood Group</label>
           <select id="donor-bg" value={currentBloodGroup} onChange={(e) => updateParam("bloodGroup", e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-medium text-slate-900 focus:outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-white">
@@ -108,6 +109,14 @@ export function DonorFilterBar() {
           <select id="donor-avail" value={currentAvailable} onChange={(e) => updateParam("isAvailable", e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-medium text-slate-900 focus:outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-white">
             <option value="">All Donors</option>
             <option value="true">Available Now Only</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="donor-verified" className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Verification</label>
+          <select id="donor-verified" value={currentVerified} onChange={(e) => updateParam("isVerified", e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-medium text-slate-900 focus:outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-white">
+            <option value="">All Statuses</option>
+            <option value="true">Verified Donors Only</option>
           </select>
         </div>
 

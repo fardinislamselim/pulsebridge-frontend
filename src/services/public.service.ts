@@ -33,6 +33,7 @@ export interface PublicDonorParams {
   district?: string;
   city?: string;
   isAvailable?: boolean;
+  isVerified?: boolean;
 }
 
 export interface NearbyDonorParams {
