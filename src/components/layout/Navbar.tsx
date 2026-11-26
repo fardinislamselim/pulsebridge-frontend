@@ -24,7 +24,7 @@ const NAV_LINKS: NavItem[] = [
  */
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/95">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/95">
       {/* Top 24/7 Emergency Coordination Bar */}
       <div className="bg-red-600 px-4 py-1 text-center text-xs font-semibold text-white">
         <div className="container mx-auto flex items-center justify-center gap-2">
