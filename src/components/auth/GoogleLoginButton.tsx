@@ -49,7 +49,9 @@ export function GoogleLoginButton() {
     toast.error("Google Sign-In window was closed or failed.");
   };
 
-  const clientIdConfigured = Boolean(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+  const clientIdConfigured = Boolean(
+    (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "").trim()
+  );
 
   return (
     <div className="w-full flex flex-col items-center justify-center space-y-2">

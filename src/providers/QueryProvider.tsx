@@ -41,7 +41,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
       })
   );
 
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
+  const googleClientId = (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "").trim();
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
