@@ -170,14 +170,23 @@ function RegisterFormInternal() {
   const registerMutation = useRegister();
 
   const onSubmit = (data: RegisterFormData) => {
+    const validBloodGroup =
+      data.role === "DONOR" &&
+      data.bloodGroup &&
+      BLOOD_GROUPS.some((bg) => bg.value === data.bloodGroup)
+        ? (data.bloodGroup as BloodGroup)
+        : undefined;
+
     registerMutation.mutate({
       name: data.name,
       email: data.email,
       password: data.password,
-      phone: data.phone || undefined,
+      phone: data.phone?.trim() || undefined,
       role: data.role as UserRole,
-      bloodGroup: data.bloodGroup as BloodGroup | undefined,
-      district: data.district || undefined,
+      ...(validBloodGroup ? { bloodGroup: validBloodGroup } : {}),
+      ...(data.role === "DONOR" && data.district?.trim()
+        ? { district: data.district.trim() }
+        : {}),
     });
   };
 

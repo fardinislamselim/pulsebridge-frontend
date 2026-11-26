@@ -30,7 +30,7 @@ export default function RegisterPage() {
 
         {/* Brand Header */}
         <div className="relative z-10">
-          <Logo size="lg" />
+          <Logo size="lg" textClassName="text-white" />
         </div>
 
         {/* Central Graphic & Value Statements */}

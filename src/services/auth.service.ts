@@ -75,7 +75,18 @@ export const authService = {
   },
 
   async register(payload: RegisterPayload): Promise<ApiResponse<{ user: User }>> {
-    const res = await apiClient.post<ApiResponse<{ user: User }>>("/auth/register", payload);
+    const cleanPayload: RegisterPayload = {
+      ...payload,
+      bloodGroup:
+        payload.role === "DONOR" && payload.bloodGroup
+          ? payload.bloodGroup
+          : undefined,
+      district:
+        payload.role === "DONOR" && payload.district?.trim()
+          ? payload.district.trim()
+          : undefined,
+    };
+    const res = await apiClient.post<ApiResponse<{ user: User }>>("/auth/register", cleanPayload);
     return res.data;
   },
 
